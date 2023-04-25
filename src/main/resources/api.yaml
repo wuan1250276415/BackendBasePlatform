@@ -1,0 +1,18 @@
+openapi: 3.0.0
+info:
+  title: Example API
+  description: This is an example API
+  version: 1.0.0
+servers:
+  - url: http://localhost:8082
+paths:
+  /example:
+    get:
+      summary: Get an example resource
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found

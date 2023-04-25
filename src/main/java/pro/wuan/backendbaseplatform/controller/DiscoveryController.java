@@ -1,5 +1,6 @@
 package pro.wuan.backendbaseplatform.controller;
 
+import lombok.experimental.Delegate;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,10 +18,12 @@ public class DiscoveryController {
         this.discoveryClient = discoveryClient;
     }
 
+    @Delegate
     @GetMapping("/services")
     public List<String> services() {
         return discoveryClient.getServices();
     }
+
 
     @GetMapping("/services/{serviceId}")
     public List<ServiceInstance> serviceInstances(@PathVariable String serviceId) {
