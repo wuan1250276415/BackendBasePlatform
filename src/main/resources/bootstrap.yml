@@ -9,13 +9,13 @@ spring:
     bootstrap:
       enabled: true
     consul:
-      host: gcjp.topwuan.tech
+      host: gcsg.topwuan.tech
       port: 8500
       config:
         default-context: application
         format: yaml
         enabled: true
-        data-key: data
+        data-key: backend
         import-check:
           enabled: false
         prefixes: config
