@@ -1,0 +1,21 @@
+spring:
+  devtools:
+    add-properties: false
+  main:
+    web-application-type: reactive
+  application:
+    name: backendbaseplatform
+  cloud:
+    bootstrap:
+      enabled: true
+    consul:
+      host: 192.168.46.199
+      port: 8500
+      config:
+        default-context: application
+        format: yaml
+        enabled: true
+        data-key: data
+        import-check:
+          enabled: false
+        prefixes: config
