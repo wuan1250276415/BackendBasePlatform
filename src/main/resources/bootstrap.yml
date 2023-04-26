@@ -9,7 +9,7 @@ spring:
     bootstrap:
       enabled: true
     consul:
-      host: 192.168.46.199
+      host: gcjp.topwuan.tech
       port: 8500
       config:
         default-context: application
