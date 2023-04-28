@@ -1,0 +1,20 @@
+spring:
+  profiles:
+    active: dev
+  devtools:
+    add-properties: false
+  main:
+    web-application-type: reactive
+  application:
+    name: backendbaseplatform
+  cloud:
+    bootstrap:
+      enabled: true
+    consul:
+      host: gcsg.topwuan.tech
+      port: 8500
+      config:
+        default-context: backend
+        format: yaml
+        enabled: true
+        data-key: application-${spring.profiles.active}
