@@ -1,0 +1,70 @@
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: backendbaseplatform
+          uri: lb://backendbaseplatform
+          predicates:
+            - Path=/backendbaseplatform/**
+          filters:
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 10
+                redis-rate-limiter.burstCapacity: 20
+                key-resolver: "#{@userKeyResolver}"
+            - name: Retry
+              args:
+                retries: 3
+                statuses: INTERNAL_SERVER_ERROR
+            - name: CustomCircuitBreaker
+              args:
+                name: backendbaseplatform
+                value: /fallback
+            - StripPrefix=1
+    consul:
+      host: localhost
+      port: 8700
+      discovery:
+        instanceId: ${spring.application.name}:${spring.application.instance_id:${random.uuid}}
+        prefer-ip-address: true
+        service-name: ${spring.application.name}
+        tags: api-gateway
+        register: true
+        deregister: true
+        enabled: true
+        fail-fast: true
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  zipkin:
+    tracing:
+      endpoint: http://localhost:9411/api/v2/spans
+
+server:
+  port: 8081
+
+logging:
+  pattern:
+#    console: '%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n'
+    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
+  level:
+    web: debug
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      backendbaseplatform:
+        slidingWindowSize: 10
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10000
+        slowCallRateThreshold: 100
+        slowCallDurationThreshold: 2000
+        permittedNumberOfCallsInHalfOpenState: 3
+        minimumNumberOfCalls: 5

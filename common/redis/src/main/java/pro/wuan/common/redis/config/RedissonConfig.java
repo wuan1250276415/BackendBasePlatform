@@ -21,7 +21,7 @@ public class RedissonConfig {
     @Bean
     public Redisson redisson() {
         Config config = new Config();
-        if (redisConfig.getRedisPassword() == null) {
+        if (redisConfig.getRedisPassword() == null || "".equals(redisConfig.getRedisPassword())) {
             config.useSingleServer().setAddress("redis://" + redisConfig.getRedisHost() + ":" + redisConfig.getRedisPort())
                     .setTimeout(redisConfig.getTimeout());
         } else {

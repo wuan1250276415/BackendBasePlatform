@@ -9,7 +9,6 @@
     </parent>
     <groupId>pro.wuan.common</groupId>
     <artifactId>redis</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
     <name>redis</name>
     <description>redis</description>
     <packaging>jar</packaging>

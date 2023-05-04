@@ -9,7 +9,6 @@
     </parent>
     <groupId>pro.wuan.common</groupId>
     <artifactId>mq</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
     <name>mq</name>
     <description>mq</description>
     <properties>

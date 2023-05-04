@@ -1,18 +1,18 @@
-spring:
-  profiles:
-    active: dev
-  application:
-    name: api-gateway
-  cloud:
-    bootstrap:
-      enabled: true
-    consul:
-      host: gcsg.topwuan.tech
-      port: 8500
-      config:
-        default-context: gateway
-        format: yaml
-        enabled: true
-        data-key: application-${spring.profiles.active}
-        import-check:
-          enabled: false
+#spring:
+#  profiles:
+#    active: dev
+#  application:
+#    name: api-gateway
+#  cloud:
+#    bootstrap:
+#      enabled: true
+#    consul:
+#      host: gcsg.topwuan.tech
+#      port: 8500
+#      config:
+#        default-context: gateway
+#        format: yaml
+#        enabled: true
+#        data-key: application-${spring.profiles.active}
+#        import-check:
+#          enabled: false

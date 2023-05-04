@@ -9,7 +9,6 @@
     </parent>
     <groupId>pro.wuan.common</groupId>
     <artifactId>db</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
     <name>db</name>
     <description>db</description>
     <properties>
