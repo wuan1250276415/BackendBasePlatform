@@ -4,7 +4,7 @@ package pro.wuan.core.user;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import pro.wuan.core.entity.Role;
+import pro.wuan.core.role.Role;
 
 @Getter
 @Setter

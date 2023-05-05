@@ -10,14 +10,6 @@ import io.github.resilience4j.retry.Retry;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.reactive.function.server.RouterFunction;
-import org.springframework.web.reactive.function.server.ServerResponse;
-
-import java.net.URI;
-
-import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
-import static org.springframework.web.reactive.function.server.RouterFunctions.route;
-import static org.springframework.web.reactive.function.server.ServerResponse.permanentRedirect;
 @Configuration
 @Slf4j
 public class Resilience4jConfig {
@@ -37,11 +29,11 @@ public class Resilience4jConfig {
 //    }
 
 
-    @Bean
-    RouterFunction<ServerResponse> redirectRoot() {
-        return route(GET("/"),
-                req -> permanentRedirect(URI.create("/actuator")).build());
-    }
+//    @Bean
+//    RouterFunction<ServerResponse> redirectRoot() {
+//        return route(GET("/"),
+//                req -> permanentRedirect(URI.create("/actuator")).build());
+//    }
 
 //    @Bean
 //    public CircuitBreakerConfigCustomizer testCustomizer() {

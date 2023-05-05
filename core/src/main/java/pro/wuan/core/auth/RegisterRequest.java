@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pro.wuan.core.entity.Role;
+import pro.wuan.core.role.Role;
 
 import java.util.Set;
 

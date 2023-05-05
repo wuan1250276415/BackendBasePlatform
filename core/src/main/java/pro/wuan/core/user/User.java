@@ -7,9 +7,9 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import pro.wuan.core.entity.Role;
+import pro.wuan.common.db.entity.BaseEntity;
+import pro.wuan.core.role.Role;
 
-import java.time.Instant;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -22,7 +22,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @NamedEntityGraph(name = "User.roles", attributeNodes = @NamedAttributeNode("roles"))
-public class User implements UserDetails {
+public class User extends BaseEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -65,17 +65,6 @@ public class User implements UserDetails {
     @Column(name = "status", nullable = false)
     private Boolean status = false;
 
-    @Column(name = "created_at", nullable = false)
-    private Instant createdAt;
-
-    @Column(name = "created_by")
-    private Integer createdBy;
-
-    @Column(name = "updated_at")
-    private Instant updatedAt;
-
-    @Column(name = "updated_by")
-    private Integer updatedBy;
 
     @ManyToMany
     @JoinTable(name = "user_role",

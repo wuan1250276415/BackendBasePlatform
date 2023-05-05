@@ -11,6 +11,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pro.wuan.core.config.auth.JwtService;
+import pro.wuan.core.role.Role;
+import pro.wuan.core.role.RoleRepository;
 import pro.wuan.core.token.Token;
 import pro.wuan.core.token.TokenRepository;
 import pro.wuan.core.token.TokenType;
@@ -18,12 +20,13 @@ import pro.wuan.core.user.User;
 import pro.wuan.core.user.UserRepository;
 
 import java.io.IOException;
-import java.time.Instant;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
     private final UserRepository repository;
+    private final RoleRepository roleRepository;
     private final TokenRepository tokenRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
@@ -36,9 +39,10 @@ public class AuthenticationService {
                 .name(request.getName())
                 .status(true)
                 .roles(request.getRole())
-                .createdAt(Instant.ofEpochSecond(System.currentTimeMillis()))
                 .roles(request.getRole())
                 .build();
+        var roles = roleRepository.saveAll(user.getRoles());
+        user.setRoles((Set<Role>) roles);
         var savedUser = repository.save(user);
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
