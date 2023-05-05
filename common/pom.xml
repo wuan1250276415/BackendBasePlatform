@@ -16,7 +16,6 @@
         <module>redis</module>
         <module>mq</module>
         <module>db</module>
-        <module>auth</module>
         <module>ws</module>
     </modules>
 

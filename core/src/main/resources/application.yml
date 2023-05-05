@@ -6,8 +6,8 @@ spring:
       password: password
       connect-timeout: 10000
       database: 0
-  main:
-    web-application-type: reactive
+#  main:
+#    web-application-type: reactive
   application:
     name: backendbaseplatform
   datasource:
