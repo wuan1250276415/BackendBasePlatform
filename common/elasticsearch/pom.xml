@@ -4,9 +4,10 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>pro.wuan</groupId>
-        <artifactId>backendbaseplatform</artifactId>
+        <artifactId>common</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
+    <groupId>pro.wuan.common</groupId>
     <artifactId>elasticsearch</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>elasticsearch</name>

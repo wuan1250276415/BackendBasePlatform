@@ -7,7 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.stereotype.Service;
-import pro.wuan.core.token.TokenRepository;
+import pro.wuan.core.config.elasticsearch.TokenRepository;
 
 @Service
 @RequiredArgsConstructor

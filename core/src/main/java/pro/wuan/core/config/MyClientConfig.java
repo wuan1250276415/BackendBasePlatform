@@ -1,7 +1,6 @@
-package pro.wuan.elasticsearch.config;
+package pro.wuan.core.config;
 
 import lombok.SneakyThrows;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.elasticsearch.client.ClientConfiguration;
 import org.springframework.data.elasticsearch.client.elc.ElasticsearchConfiguration;
@@ -9,7 +8,9 @@ import org.springframework.data.elasticsearch.config.EnableElasticsearchAuditing
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 import org.springframework.data.elasticsearch.support.HttpHeaders;
 
-import javax.net.ssl.*;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 import java.security.cert.X509Certificate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -18,8 +19,6 @@ import java.time.format.DateTimeFormatter;
 @EnableElasticsearchRepositories
 @EnableElasticsearchAuditing
 public class MyClientConfig extends ElasticsearchConfiguration {
-    @Value("${spring.elasticsearch.rest.uris}")
-    String connetionUrl;
 
     @SneakyThrows
     @Override

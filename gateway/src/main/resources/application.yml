@@ -1,7 +1,15 @@
 spring:
+  main:
+    web-application-type: reactive
   application:
     name: api-gateway
   cloud:
+    bus:
+      id: ${spring.application.name}:${server.port}
+      enabled: true
+      trace:
+        enabled: true
+      destination: backendbaseplatform
     gateway:
       routes:
         - id: backendbaseplatform
@@ -23,9 +31,13 @@ spring:
                 name: backendbaseplatform
                 value: /fallback
             - StripPrefix=1
+        - id: bus
+          uri: lb://bus
+          predicates:
+            - Path=/bus/**
     consul:
       host: localhost
-      port: 8700
+      port: 8500
       discovery:
         instanceId: ${spring.application.name}:${spring.application.instance_id:${random.uuid}}
         prefer-ip-address: true

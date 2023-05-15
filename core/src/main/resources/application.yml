@@ -6,7 +6,7 @@ spring:
       password: password
       connect-timeout: 10000
       database: 0
-#  main:
+  #  main:
 #    web-application-type: reactive
   application:
     name: backendbaseplatform
@@ -25,6 +25,12 @@ spring:
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
   cloud:
+    bus:
+      id: ${spring.application.name}:${server.port}
+      enabled: true
+      trace:
+        enabled: true
+      destination: ${spring.application.name}
     compatibility-verifier:
       enabled: false
     loadbalancer:
@@ -32,7 +38,7 @@ spring:
         enabled: false
     consul:
       host: localhost
-      port: 8700
+      port: 8500
       discovery:
         instanceId: ${spring.application.name}:${spring.application.instance_id:${random.uuid}}
         prefer-ip-address: true
@@ -50,9 +56,6 @@ spring:
     port: 5672
     username: guest
     password: guest
-    websocket:
-      destination-prefix: /app
-      broker-prefix: topic
 management:
   tracing:
     sampling:
@@ -61,6 +64,9 @@ management:
     web:
       exposure:
         include: '*'
+  health:
+    elasticsearch:
+      enabled: true
   zipkin:
     tracing:
       endpoint: http://localhost:9411/api/v2/spans
