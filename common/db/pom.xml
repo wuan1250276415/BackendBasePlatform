@@ -21,7 +21,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>pro.wuan.common</groupId>
+            <artifactId>elasticsearch</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
         <!-- PostgreSQL driver (you can replace this with a different database driver if needed) -->
         <dependency>
             <groupId>org.postgresql</groupId>

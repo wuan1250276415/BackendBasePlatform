@@ -33,9 +33,6 @@ spring:
       destination: ${spring.application.name}
     compatibility-verifier:
       enabled: false
-    loadbalancer:
-      ribbon:
-        enabled: false
     consul:
       host: localhost
       port: 8500
@@ -48,9 +45,6 @@ spring:
         deregister: true
         enabled: true
         fail-fast: true
-      config:
-        import-check:
-          enabled: false
   rabbitmq:
     host: localhost
     port: 5672
@@ -187,9 +181,9 @@ resilience4j.timelimiter:
         backendB:
             baseConfig: default
 logging:
-  pattern:
+#  pattern:
 #    console: '%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n'
-    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
+#    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
   level:
     web: debug
 
