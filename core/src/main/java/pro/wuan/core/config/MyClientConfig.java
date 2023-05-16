@@ -1,6 +1,7 @@
 package pro.wuan.core.config;
 
 import lombok.SneakyThrows;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.elasticsearch.client.ClientConfiguration;
 import org.springframework.data.elasticsearch.client.elc.ElasticsearchConfiguration;
@@ -20,6 +21,7 @@ import java.time.format.DateTimeFormatter;
 @EnableElasticsearchAuditing
 public class MyClientConfig extends ElasticsearchConfiguration {
 
+    @NotNull
     @SneakyThrows
     @Override
     public ClientConfiguration clientConfiguration() {
