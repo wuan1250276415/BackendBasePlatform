@@ -11,16 +11,15 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pro.wuan.core.config.auth.JwtService;
-import pro.wuan.core.config.elasticsearch.RoleRepository;
-import pro.wuan.core.config.elasticsearch.TokenRepository;
-import pro.wuan.core.config.elasticsearch.UserRepository;
-import pro.wuan.core.role.Role;
+import pro.wuan.core.role.RoleRepository;
 import pro.wuan.core.token.Token;
+import pro.wuan.core.token.TokenRepository;
 import pro.wuan.core.token.TokenType;
 import pro.wuan.core.user.User;
+import pro.wuan.core.user.UserRepository;
 
 import java.io.IOException;
-import java.util.Set;
+import java.util.HashSet;
 
 @Service
 @RequiredArgsConstructor
@@ -42,7 +41,7 @@ public class AuthenticationService {
                 .roles(request.getRole())
                 .build();
         var roles = roleRepository.saveAll(user.getRoles());
-        user.setRoles((Set<Role>) roles);
+        user.setRoles(new HashSet<>(roles));
         var savedUser = repository.save(user);
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);

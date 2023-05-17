@@ -1,28 +1,49 @@
 package pro.wuan.core.service;
 
-import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
-import org.springframework.cache.annotation.Cacheable;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+import org.flowable.engine.RuntimeService;
+import org.flowable.engine.TaskService;
+import org.flowable.task.api.Task;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
+import pro.wuan.core.person.Person;
+import pro.wuan.core.person.PersonRepository;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
+@Transactional
+@RequiredArgsConstructor
 public class MyService {
 
-    private final RestTemplate restTemplate;
+    private final RuntimeService runtimeService;
 
-    public MyService(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
+
+    private final TaskService taskService;
+
+    private final PersonRepository personRepository;
+
+    public void startProcess(String assignee) {
+
+        Person person = personRepository.findByUsername(assignee);
+
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("person", person);
+        runtimeService.startProcessInstanceByKey("oneTaskProcess", variables);
     }
 
-    @CircuitBreaker(name = "default", fallbackMethod = "fallbackMethod")
-    @Cacheable(value = "users", key = "#root.methodName")
-    public String callRemoteService() {
-        // Make a remote call using RestTemplate or another HTTP client
-        return restTemplate.getForObject("http://backendbaseplatform/services", String.class);
+    public List<Task> getTasks(String assignee) {
+        return taskService.createTaskQuery().taskAssignee(assignee).list();
     }
 
-    public String fallbackMethod(Exception e) {
-        return "Fallback response";
+    public void createDemoUsers() {
+        if (personRepository.findAll().size() == 0) {
+            personRepository.save(new Person("jbarrez", "Joram", "Barrez", new Date()));
+            personRepository.save(new Person("trademakers", "Tijs", "Rademakers", new Date()));
+        }
     }
+
 }
-
