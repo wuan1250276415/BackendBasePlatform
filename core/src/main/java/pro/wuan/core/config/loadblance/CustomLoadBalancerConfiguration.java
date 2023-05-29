@@ -1,6 +1,5 @@
 package pro.wuan.core.config.loadblance;
 
-import org.jetbrains.annotations.NotNull;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerRequestTransformer;
 import org.springframework.cloud.loadbalancer.core.RandomLoadBalancer;
@@ -46,7 +45,6 @@ public class CustomLoadBalancerConfiguration {
             @Override
             public HttpRequest transformRequest(HttpRequest request, ServiceInstance instance) {
                 return new HttpRequestWrapper(request) {
-                    @NotNull
                     @Override
                     public HttpHeaders getHeaders() {
                         HttpHeaders headers = new HttpHeaders();

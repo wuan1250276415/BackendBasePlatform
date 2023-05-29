@@ -6,7 +6,6 @@ import org.flowable.engine.TaskService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.bus.jackson.RemoteApplicationEventScan;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -14,7 +13,6 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication(proxyBeanMethods = false)
 @EnableDiscoveryClient
 @ComponentScan(value = {"pro.wuan.core", "pro.wuan.common.redis", "pro.wuan.common.mq"})
-@RemoteApplicationEventScan(basePackages = "pro.wuan.core.config")
 public class CoreApplication {
 
 	public static void main(String[] args) {

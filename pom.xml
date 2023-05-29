@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.6</version>
+        <version>3.1.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>pro.wuan</groupId>
@@ -19,6 +19,7 @@
         <module>core</module>
         <module>gateway</module>
         <module>common</module>
+        <module>camunda</module>
     </modules>
 
     <properties>
@@ -26,7 +27,7 @@
         <spring-cloud.version>2022.0.2</spring-cloud.version>
         <springfox.version>3.0.0</springfox.version>
         <vavr-jackson.version>0.10.3</vavr-jackson.version>
-        <spring-boot.version>3.0.6</spring-boot.version>
+        <spring-boot.version>3.1.0</spring-boot.version>
         <resilience4j.version>2.0.2</resilience4j.version>
         <spring-cloud-starter-gateway.version>4.0.4</spring-cloud-starter-gateway.version>
         <spring-cloud-starter.version>4.0.2</spring-cloud-starter.version>
