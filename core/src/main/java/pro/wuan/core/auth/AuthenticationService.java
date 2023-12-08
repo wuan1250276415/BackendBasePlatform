@@ -38,7 +38,6 @@ public class AuthenticationService {
                 .name(request.getName())
                 .status(true)
                 .roles(request.getRole())
-                .roles(request.getRole())
                 .build();
         var roles = roleRepository.saveAll(user.getRoles());
         user.setRoles(new HashSet<>(roles));

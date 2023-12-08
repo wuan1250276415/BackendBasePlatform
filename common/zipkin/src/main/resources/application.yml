@@ -1,0 +1,11 @@
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  zipkin:
+    tracing:
+      endpoint: http://100.64.0.7:9411/api/v2/spans

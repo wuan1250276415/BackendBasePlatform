@@ -18,6 +18,7 @@
         <module>db</module>
         <module>ws</module>
         <module>elasticsearch</module>
+        <module>zipkin</module>
     </modules>
 
     <properties>

@@ -1,9 +1,9 @@
 spring:
   data:
     redis:
-      host: localhost
+      host: 100.64.0.4
       port: 6379
-      password: password
+      password: wuanfuck321.
       connect-timeout: 10000
       database: 0
   #  main:
@@ -11,10 +11,10 @@ spring:
   application:
     name: backendbaseplatform
   datasource:
-    url: jdbc:postgresql://localhost:5432/backend
+    url: jdbc:postgresql://100.64.0.4:5432/backend
     password: wuanfuck321.
     driver-class-name: org.postgresql.Driver
-    username: wuan
+    username: postgres
   jpa:
     hibernate:
       ddl-auto: update
@@ -41,7 +41,7 @@ spring:
     compatibility-verifier:
       enabled: false
     consul:
-      host: localhost
+      host: 100.64.0.4
       port: 8500
       discovery:
         instanceId: ${spring.application.name}:${spring.application.instance_id:${random.uuid}}
@@ -53,10 +53,10 @@ spring:
         enabled: true
         fail-fast: true
   rabbitmq:
-    host: localhost
+    host: 100.64.0.4
     port: 5672
-    username: guest
-    password: guest
+    username: wuan
+    password: wuanfuck321.
 management:
   tracing:
     sampling:
@@ -65,15 +65,15 @@ management:
     web:
       exposure:
         include: '*'
-  health:
-    elasticsearch:
-      enabled: true
+#  health:
+#    elasticsearch:
+#      enabled: true
   zipkin:
     tracing:
-      endpoint: http://localhost:9411/api/v2/spans
+      endpoint: http://100.64.0.4:9411/api/v2/spans
 
 server:
-  port: 8080
+  port: 8082
 
 resilience4j.circuitbreaker:
     configs:
