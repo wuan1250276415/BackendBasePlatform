@@ -1,27 +1,27 @@
 spring:
   data:
     redis:
-      host: 100.64.0.4
-      port: 6379
+      host: 42.194.184.206
+      port: 6389
       password: wuanfuck321.
       connect-timeout: 10000
       database: 0
-  rabbitmq:
-    host: 100.64.0.4
-    port: 5672
-    username: wuan
-    password: wuanfuck321.
+#  rabbitmq:
+#    host: 42.194.184.206
+#    port: 5672
+#    username: wuan
+#    password: wuanfuck321.
   main:
     web-application-type: reactive
   application:
     name: api-gateway
   cloud:
-    bus:
-      id: ${spring.application.name}:${server.port}
-      enabled: true
-      trace:
-        enabled: true
-      destination: backendbaseplatform
+#    bus:
+#      id: ${spring.application.name}:${server.port}
+#      enabled: true
+#      trace:
+#        enabled: true
+#      destination: backendbaseplatform
     gateway:
       routes:
         - id: backendbaseplatform
@@ -48,7 +48,7 @@ spring:
           predicates:
             - Path=/bus/**
     consul:
-      host: 100.64.0.4
+      host: 42.194.184.206
       port: 8500
       discovery:
         instanceId: ${spring.application.name}:${spring.application.instance_id:${random.uuid}}
@@ -69,15 +69,15 @@ management:
         include: '*'
   zipkin:
     tracing:
-      endpoint: http://100.64.0.4:9411/api/v2/spans
+      endpoint: http://42.194.184.206:9411/api/v2/spans
 
 server:
   port: 8081
 
 logging:
   pattern:
-#    console: '%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n'
-    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
+    console: '%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n'
+    level: '%5p [${spring.application.name},%X{X-B3-TraceId:-},%X{X-B3-SpanId:-},%X{X-Span-Export:-}]'
   level:
     web: debug
 

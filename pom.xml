@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.0</version>
+        <version>3.2.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>pro.wuan</groupId>
@@ -24,13 +24,12 @@
 
     <properties>
         <java.version>17</java.version>
-        <spring-cloud.version>2022.0.2</spring-cloud.version>
+        <spring-cloud.version>2023.0.1</spring-cloud.version>
         <springfox.version>3.0.0</springfox.version>
         <vavr-jackson.version>0.10.3</vavr-jackson.version>
-        <spring-boot.version>3.1.0</spring-boot.version>
-        <resilience4j.version>2.0.2</resilience4j.version>
-        <spring-cloud-starter-gateway.version>4.0.4</spring-cloud-starter-gateway.version>
-        <spring-cloud-starter.version>4.0.2</spring-cloud-starter.version>
+        <spring-boot.version>3.2.4</spring-boot.version>
+        <resilience4j.version>2.2.0</resilience4j.version>
+        <spring-cloud-starter.version>4.1.1</spring-cloud-starter.version>
         <javax.servlet-api.version>4.0.1</javax.servlet-api.version>
         <io.springfox.verion>3.0.0</io.springfox.verion>
         <commons-pool2.version>2.11.1</commons-pool2.version>
@@ -43,21 +42,21 @@
             <optional>true</optional>
         </dependency>
 
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-web</artifactId>
-                <version>${spring-boot.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-actuator</artifactId>
-                <version>${spring-boot.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter</artifactId>
-                <version>${spring-boot.version}</version>
-            </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>${spring-boot.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+            <version>${spring-boot.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <version>${spring-boot.version}</version>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -94,11 +93,6 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-starter-consul-config</artifactId>
-                <version>${spring-cloud-starter.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-starter-consul-discovery</artifactId>
                 <version>${spring-cloud-starter.version}</version>
             </dependency>
             <dependency>
