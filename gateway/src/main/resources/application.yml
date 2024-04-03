@@ -52,13 +52,11 @@ spring:
       port: 8500
       discovery:
         instanceId: ${spring.application.name}:${spring.application.instance_id:${random.uuid}}
-        prefer-ip-address: true
         service-name: ${spring.application.name}
         tags: api-gateway
-        register: true
-        deregister: true
-        enabled: true
-        fail-fast: true
+        prefer-ip-address: true
+        healthCheckInterval: 15s
+        ipAddress: 100.64.0.6
 management:
   tracing:
     sampling:

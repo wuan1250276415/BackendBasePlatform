@@ -32,12 +32,6 @@ spring:
       cache:
         enabled: true
       configurations: zone-preference
-    bus:
-      id: ${spring.application.name}:${server.port}
-      enabled: true
-      trace:
-        enabled: true
-      destination: ${spring.application.name}
     compatibility-verifier:
       enabled: false
     consul:
@@ -48,15 +42,7 @@ spring:
         prefer-ip-address: true
         service-name: ${spring.application.name}
         tags: backendbaseplatform
-        register: true
-        deregister: true
-        enabled: true
         fail-fast: true
-  rabbitmq:
-    host: 100.64.0.4
-    port: 5672
-    username: wuan
-    password: wuanfuck321.
 management:
   tracing:
     sampling:
@@ -89,9 +75,9 @@ resilience4j.timelimiter:
 
 
 logging:
-#  pattern:
-#    console: '%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n'
-#    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
+  pattern:
+    console: '%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n'
+    level: '%5p [${spring.application.name},%X{X-B3-TraceId:-},%X{X-B3-SpanId:-},%X{X-Span-Export:-}]'
   level:
     web: debug
 
