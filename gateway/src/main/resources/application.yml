@@ -43,10 +43,6 @@ spring:
                 name: backendbaseplatform
                 value: /fallback
             - StripPrefix=1
-        - id: bus
-          uri: lb://bus
-          predicates:
-            - Path=/bus/**
     consul:
       host: 42.194.184.206
       port: 8500
@@ -55,8 +51,6 @@ spring:
         service-name: ${spring.application.name}
         tags: api-gateway
         prefer-ip-address: true
-        healthCheckInterval: 15s
-        ipAddress: 100.64.0.6
 management:
   tracing:
     sampling:
