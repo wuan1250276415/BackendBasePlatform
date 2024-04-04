@@ -1,4 +1,4 @@
-package pro.wuan.core.auth;
+package pro.wuan.core.auth.service;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,6 +10,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import pro.wuan.core.auth.pojo.AuthenticationRequest;
+import pro.wuan.core.auth.pojo.AuthenticationResponse;
+import pro.wuan.core.auth.pojo.RegisterRequest;
 import pro.wuan.core.config.auth.JwtService;
 import pro.wuan.core.role.RoleRepository;
 import pro.wuan.core.token.Token;
@@ -21,6 +24,10 @@ import pro.wuan.core.user.UserRepository;
 import java.io.IOException;
 import java.util.HashSet;
 
+/**
+ * This class provides the authentication service for the application.
+ * It uses Spring Boot's @Service annotation to indicate that it's a service class.
+ */
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
@@ -31,6 +38,13 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
+    /**
+     * This method handles the registration of a new user.
+     * It takes a RegisterRequest object as input and returns an AuthenticationResponse.
+     *
+     * @param request the registration request
+     * @return an AuthenticationResponse with the access and refresh tokens
+     */
     public AuthenticationResponse register(RegisterRequest request) {
         var user = User.builder()
                 .username(request.getUsername())
@@ -51,6 +65,13 @@ public class AuthenticationService {
                 .build();
     }
 
+    /**
+     * This method handles the authentication of a user.
+     * It takes an AuthenticationRequest object as input and returns an AuthenticationResponse.
+     *
+     * @param request the authentication request
+     * @return an AuthenticationResponse with the access and refresh tokens
+     */
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -70,6 +91,12 @@ public class AuthenticationService {
                 .build();
     }
 
+    /**
+     * This method saves the user token.
+     *
+     * @param user the user
+     * @param jwtToken the JWT token
+     */
     private void saveUserToken(User user, String jwtToken) {
         var token = Token.builder()
                 .user(user)
@@ -81,6 +108,11 @@ public class AuthenticationService {
         tokenRepository.save(token);
     }
 
+    /**
+     * This method revokes all tokens of a user.
+     *
+     * @param user the user
+     */
     private void revokeAllUserTokens(User user) {
         var validUserTokens = tokenRepository.findAllValidTokenByUser(user.getId());
         if (validUserTokens.isEmpty())
@@ -92,6 +124,14 @@ public class AuthenticationService {
         tokenRepository.saveAll(validUserTokens);
     }
 
+    /**
+     * This method handles the refresh token requests.
+     * It takes a HttpServletRequest and HttpServletResponse as input and refreshes the token.
+     *
+     * @param request the HttpServletRequest
+     * @param response the HttpServletResponse
+     * @throws IOException if an input or output exception occurred
+     */
     public void refreshToken(
             HttpServletRequest request,
             HttpServletResponse response

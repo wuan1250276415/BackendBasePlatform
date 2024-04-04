@@ -1,4 +1,4 @@
-package pro.wuan.core.config;
+package pro.wuan.core.config.security;
 
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.lang.NonNull;

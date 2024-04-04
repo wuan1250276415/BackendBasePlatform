@@ -1,7 +1,7 @@
 package pro.wuan.core.token;
 
 import org.springframework.data.jpa.repository.Query;
-import pro.wuan.common.db.repository.BaseRepository;
+import pro.wuan.core.base.repository.BaseRepository;
 
 import java.util.List;
 import java.util.Optional;

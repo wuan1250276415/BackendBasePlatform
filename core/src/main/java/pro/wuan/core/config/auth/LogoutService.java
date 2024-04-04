@@ -1,3 +1,8 @@
+/**
+ * This class provides the logout service for the application.
+ * It implements Spring's LogoutHandler to handle the logout process.
+ * It uses Spring Boot's @Service annotation to indicate that it's a service class.
+ */
 package pro.wuan.core.config.auth;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,8 +18,19 @@ import pro.wuan.core.token.TokenRepository;
 @RequiredArgsConstructor
 public class LogoutService implements LogoutHandler {
 
+  /**
+   * An instance of TokenRepository to handle token-related operations.
+   */
   private final TokenRepository tokenRepository;
 
+  /**
+   * This method handles the logout process.
+   * It takes a HttpServletRequest, HttpServletResponse, and Authentication as input and logs out the user.
+   *
+   * @param request the HttpServletRequest
+   * @param response the HttpServletResponse
+   * @param authentication the Authentication
+   */
   @Override
   public void logout(
       HttpServletRequest request,

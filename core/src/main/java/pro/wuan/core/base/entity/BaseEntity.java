@@ -1,14 +1,14 @@
-package pro.wuan.common.db.entity;
+package pro.wuan.core.base.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.data.annotation.CreatedBy;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.security.core.context.SecurityContextHolder;
+import pro.wuan.core.user.User;
 
 import java.io.Serializable;
 import java.time.Instant;
@@ -24,7 +24,6 @@ public abstract class BaseEntity implements Serializable {
     private Instant createdAt;
 
     @Column(name = "created_by")
-    @CreatedBy
     private Integer createdBy;
 
     @Column(name = "updated_at")
@@ -32,7 +31,6 @@ public abstract class BaseEntity implements Serializable {
     private Instant updatedAt;
 
     @Column(name = "updated_by")
-    @LastModifiedBy
     private Integer updatedBy;
 
     @Column(name = "deleted")
@@ -44,12 +42,13 @@ public abstract class BaseEntity implements Serializable {
     @PrePersist
     protected void onCreate() {
         createdAt = Instant.now();
+        createdBy = getCurrentUserId();
     }
-
 
     @PreUpdate
     protected void onUpdate() {
         updatedAt = Instant.now();
+        updatedBy = getCurrentUserId();
     }
 
     @PreRemove
@@ -57,5 +56,9 @@ public abstract class BaseEntity implements Serializable {
         this.deleted = true;
     }
 
-    // Getter and Setter methods
+    private Integer getCurrentUserId() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return ((User) principal).getId();
+
+    }
 }

@@ -7,7 +7,7 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import pro.wuan.common.db.entity.BaseEntity;
+import pro.wuan.core.base.entity.BaseEntity;
 import pro.wuan.core.role.Role;
 
 import java.util.Collection;

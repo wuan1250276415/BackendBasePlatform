@@ -1,7 +1,7 @@
 package pro.wuan.core.user;
 
 import org.springframework.data.jpa.repository.EntityGraph;
-import pro.wuan.common.db.repository.BaseRepository;
+import pro.wuan.core.base.repository.BaseRepository;
 
 import java.util.Optional;
 

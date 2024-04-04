@@ -1,4 +1,4 @@
-package pro.wuan.core.config.loadblance;
+package pro.wuan.gateway.config.loadblance;
 
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerRequestTransformer;
@@ -15,8 +15,18 @@ import org.springframework.http.client.support.HttpRequestWrapper;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * This class provides custom configuration for load balancing.
+ */
 public class CustomLoadBalancerConfiguration {
 
+    /**
+     * This method provides a random load balancer.
+     *
+     * @param environment the environment
+     * @param loadBalancerClientFactory the load balancer client factory
+     * @return a random load balancer
+     */
     @Bean
     ReactorLoadBalancer<ServiceInstance> randomLoadBalancer(Environment environment,
                                                             LoadBalancerClientFactory loadBalancerClientFactory) {
@@ -26,19 +36,30 @@ public class CustomLoadBalancerConfiguration {
                 name);
     }
 
+    /**
+     * This method provides a service instance list supplier with various features.
+     *
+     * @param context the configurable application context
+     * @return a service instance list supplier
+     */
     @Bean
     public ServiceInstanceListSupplier discoveryClientServiceInstanceListSupplier(
             ConfigurableApplicationContext context) {
         return ServiceInstanceListSupplier.builder()
                 .withDiscoveryClient()
-                .withWeighted(instance -> ThreadLocalRandom.current().nextInt(1, 101)) // 权重
-                .withCaching()  // 缓存服务实例
-                .withHealthChecks() // 实例的健康检查
-                .withSameInstancePreference()   //优先使用同一个实例
-                .withHints() // 提示
+                .withWeighted(instance -> ThreadLocalRandom.current().nextInt(1, 101)) // weight
+                .withCaching()  // cache service instances
+                .withHealthChecks() // health checks for instances
+                .withSameInstancePreference()   // prefer the same instance
+                .withHints() // hints
                 .build(context);
     }
 
+    /**
+     * This method provides a load balancer request transformer.
+     *
+     * @return a load balancer request transformer
+     */
     @Bean
     public LoadBalancerRequestTransformer transformer() {
         return new LoadBalancerRequestTransformer() {
@@ -56,8 +77,4 @@ public class CustomLoadBalancerConfiguration {
             }
         };
     }
-
-
 }
-
-

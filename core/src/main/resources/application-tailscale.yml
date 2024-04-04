@@ -1,0 +1,70 @@
+spring:
+  data:
+    redis:
+      host: 42.194.184.206
+      port: 6389
+      password: wuanfuck321.
+      connect-timeout: 10000
+      database: 0
+  #  main:
+#    web-application-type: reactive
+  application:
+    name: backendbaseplatform
+  datasource:
+    url: jdbc:mysql://gz-cynosdbmysql-grp-94mi1uwn.sql.tencentcdb.com:20857/backend?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    password: wuanfuck321.
+    driver-class-name:  com.mysql.cj.jdbc.Driver
+    username: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        transaction:
+          jta:
+            platform: org.hibernate.engine.transaction.jta.platform.internal.JBossStandAloneJtaPlatform
+    #        format_sql: true
+    open-in-view: true
+  cloud:
+    consul:
+      host: 42.194.184.206
+      port: 8500
+      discovery:
+        instanceId: ${spring.application.name}:${spring.application.instance_id:${random.uuid}}
+        prefer-ip-address: true
+        service-name: ${spring.application.name}
+        tags: backendbaseplatform
+        fail-fast: true
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+#  health:
+#    elasticsearch:
+#      enabled: true
+  zipkin:
+    tracing:
+      endpoint: http://42.194.184.206:9411/api/v2/spans
+
+server:
+  port: 8082
+
+logging:
+  pattern:
+    console: '%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n'
+    level: '%5p [${spring.application.name},%X{X-B3-TraceId:-},%X{X-B3-SpanId:-},%X{X-Span-Export:-}]'
+  level:
+    web: debug
+
+application:
+  security:
+    jwt:
+      secret-key: 4A404E635266556A586E5A7234753778214125442A472D4B6150645367566B59
+      expiration: 86400000 # a day
+      refresh-token:
+        expiration: 604800000 # 7 days

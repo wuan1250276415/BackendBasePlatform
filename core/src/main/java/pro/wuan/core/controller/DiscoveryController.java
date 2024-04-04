@@ -1,8 +1,5 @@
 package pro.wuan.core.controller;
 
-import io.github.resilience4j.bulkhead.annotation.Bulkhead;
-import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
-import io.github.resilience4j.retry.annotation.Retry;
 import lombok.experimental.Delegate;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
@@ -25,18 +22,12 @@ public class DiscoveryController {
 
     @Delegate
     @GetMapping("/services")
-    @CircuitBreaker(name = "services")
-    @Bulkhead(name = "services")
-    @Retry(name = "services")
     public List<String> services() {
         return discoveryClient.getServices();
     }
 
 
     @GetMapping("/services/{serviceId}")
-    @CircuitBreaker(name = "services")
-    @Bulkhead(name = "services")
-    @Retry(name = "services")
     public List<ServiceInstance> serviceInstances(@PathVariable String serviceId) {
         return discoveryClient.getInstances(serviceId);
     }

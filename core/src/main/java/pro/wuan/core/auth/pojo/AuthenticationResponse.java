@@ -1,4 +1,4 @@
-package pro.wuan.core.auth;
+package pro.wuan.core.auth.pojo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

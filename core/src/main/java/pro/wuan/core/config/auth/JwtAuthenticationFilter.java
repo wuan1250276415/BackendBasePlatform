@@ -1,3 +1,8 @@
+/**
+ * This class provides a filter for JWT authentication.
+ * It extends Spring's OncePerRequestFilter to ensure it's executed once per request.
+ * It uses Spring's @Component annotation to indicate that it's a component class.
+ */
 package pro.wuan.core.config.auth;
 
 import jakarta.servlet.FilterChain;
@@ -21,10 +26,31 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
+  /**
+   * An instance of JwtService to handle JWT-related operations.
+   */
   private final JwtService jwtService;
+
+  /**
+   * An instance of UserDetailsService to load user-related data.
+   */
   private final UserDetailsService userDetailsService;
+
+  /**
+   * An instance of TokenRepository to handle token-related operations.
+   */
   private final TokenRepository tokenRepository;
 
+  /**
+   * This method provides the filter for JWT authentication.
+   * It takes a HttpServletRequest, HttpServletResponse, and FilterChain as input and processes the JWT authentication.
+   *
+   * @param request the HttpServletRequest
+   * @param response the HttpServletResponse
+   * @param filterChain the FilterChain
+   * @throws ServletException if a servlet-specific error occurs
+   * @throws IOException if an I/O error occurs
+   */
   @Override
   protected void doFilterInternal(
       @NonNull HttpServletRequest request,
@@ -49,7 +75,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
       var isTokenValid = tokenRepository.findByToken(jwt)
           .map(t -> !t.isExpired() && !t.isRevoked())
           .orElse(false);
-      if (jwtService.isTokenValid(jwt, userDetails) && isTokenValid) {
+      if (jwtService.isTokenValid(jwt, userDetails) && Boolean.TRUE.equals(isTokenValid)) {
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
             userDetails,
             null,

@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import pro.wuan.common.db.entity.BaseEntity;
+import pro.wuan.core.base.entity.BaseEntity;
 import pro.wuan.core.entity.Application;
 import pro.wuan.core.user.User;
 

@@ -12,8 +12,5 @@ public class GatewayApplication {
 		new SpringApplicationBuilder(GatewayApplication.class).run(args);
 	}
 
-//    @EventListener
-//    public void onMyCustomEvent(MyApplicationEvent event) {
-//        System.out.println("Received event: " + event.getMessage());
-//    }
+
 }

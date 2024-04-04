@@ -1,4 +1,4 @@
-package pro.wuan.core.config.loadblance;
+package pro.wuan.gateway.config.loadblance;
 
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.loadbalancer.annotation.LoadBalancerClient;
@@ -15,6 +15,8 @@ public class MyConfiguration {
     RestTemplate restTemplate() {
         return new RestTemplate();
     }
+
+
 }
 
 

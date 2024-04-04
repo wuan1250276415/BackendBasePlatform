@@ -12,5 +12,10 @@ public class FallbackController {
     public ResponseEntity<String> fallback() {
         return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body("Service is currently unavailable. Please try again later.");
     }
+    @GetMapping("/fallback1")
+    public ResponseEntity<String> fallback1() {
+        int i = 1/0;
+        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body("Service is currently unavailable. Please try again later.");
+    }
 }
 
