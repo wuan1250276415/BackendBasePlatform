@@ -1,3 +1,14 @@
 spring:
   profiles:
     active: @profileActive@
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  zipkin:
+    tracing:
+      endpoint: http://42.194.184.206:9411/api/v2/spans

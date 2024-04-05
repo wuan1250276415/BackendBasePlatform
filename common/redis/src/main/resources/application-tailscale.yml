@@ -1,0 +1,11 @@
+spring:
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+  data:
+    redis:
+      host: 100.64.0.5
+      port: 6389
+      password: wuanfuck321.
+      connect-timeout: 10000
+      database: 0

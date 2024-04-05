@@ -1,0 +1,19 @@
+server:
+  port: 8083
+
+spring:
+  rabbitmq:
+    host: 100.64.0.5
+    port: 5673
+    username: guest
+    password: wuanfuck321.
+    virtual-host: /
+    listener:
+      simple:
+        default-requeue-rejected: false
+        retry:
+          enabled: true
+          max-attempts: 3
+          initial-interval: 1000
+          max-interval: 10000
+          multiplier: 2

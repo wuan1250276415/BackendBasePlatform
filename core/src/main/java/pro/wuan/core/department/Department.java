@@ -11,6 +11,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import pro.wuan.core.base.entity.BaseEntity;
 
 @Getter
@@ -20,18 +21,10 @@ import pro.wuan.core.base.entity.BaseEntity;
 public class Department extends BaseEntity {
 
     /**
-     * The unique identifier of the department.
-     * It uses JPA's @Id and @GeneratedValue annotations to indicate that it's the primary key and is auto-generated.
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Integer id;
-
-    /**
      * The name of the department.
      * It uses the @NotNull and @Size annotations to validate that the name is not null and its size is up to 255 characters.
      */
+    @ToString.Include
     @Size(max = 255)
     @NotNull
     @Column(name = "name", nullable = false)
@@ -40,24 +33,28 @@ public class Department extends BaseEntity {
     /**
      * The description of the department.
      */
+    @ToString.Include
     @Column(name = "description", length = Integer.MAX_VALUE)
     private String description;
 
     /**
      * The identifier of the parent department.
      */
+    @ToString.Include
     @Column(name = "parent_department_id")
     private Integer parentDepartmentId;
 
     /**
      * The identifier of the unit that the department belongs to.
      */
+    @ToString.Include
     @Column(name = "unit_id")
     private Integer unitId;
 
     /**
      * The identifier of the leader of the department.
      */
+    @ToString.Include
     @Column(name = "leader_id")
     private Integer leaderId;
 
@@ -65,6 +62,7 @@ public class Department extends BaseEntity {
      * The status of the department.
      * It uses the @NotNull annotation to validate that the status is not null.
      */
+    @ToString.Include
     @NotNull
     @Column(name = "status", nullable = false)
     private Boolean status = false;

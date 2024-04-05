@@ -16,7 +16,11 @@ spring:
   application:
     name: api-gateway
   cloud:
-#    bus:
+    inetutils:
+      timeout-seconds: 2
+      preferred-networks: 100.64.0.7
+      default-hostname: 100.64.0.7
+    #    bus:
 #      id: ${spring.application.name}:${server.port}
 #      enabled: true
 #      trace:

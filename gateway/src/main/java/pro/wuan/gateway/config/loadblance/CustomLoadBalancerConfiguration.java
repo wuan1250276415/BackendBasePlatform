@@ -65,7 +65,7 @@ public class CustomLoadBalancerConfiguration {
         return new LoadBalancerRequestTransformer() {
             @Override
             public HttpRequest transformRequest(HttpRequest request, ServiceInstance instance) {
-                return new HttpRequestWrapper(request) {
+                return new HttpRequestWrapper( request) {
                     @Override
                     public HttpHeaders getHeaders() {
                         HttpHeaders headers = new HttpHeaders();

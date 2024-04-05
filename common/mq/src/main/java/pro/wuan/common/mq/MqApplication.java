@@ -10,4 +10,5 @@ public class MqApplication {
         SpringApplication.run(MqApplication.class, args);
     }
 
+
 }

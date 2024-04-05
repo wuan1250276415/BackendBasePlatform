@@ -6,6 +6,7 @@
 package pro.wuan.core.department;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.ResponseEntity;
@@ -46,15 +47,13 @@ public class DepartmentController {
      * @return a ResponseEntity containing the found Department entity
      */
     @GetMapping("/department/{name}")
+    @Cacheable(value = "department", key = "#name")
     public ResponseEntity<List<Department>> findByName(@PathVariable("name") String name) {
         Department department = new Department();
         department.setName(name);
-
         ExampleMatcher matcher = ExampleMatcher.matching()
             .withMatcher("name", ExampleMatcher.GenericPropertyMatchers.contains()); // 设置name字段为模糊匹配
-
         Example<Department> example = Example.of(department, matcher);
-
         return ResponseEntity.ok(departmentRepository.findAll(example));
     }
 

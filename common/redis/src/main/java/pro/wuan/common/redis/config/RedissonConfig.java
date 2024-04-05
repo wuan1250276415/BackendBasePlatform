@@ -2,7 +2,6 @@ package pro.wuan.common.redis.config;
 
 import org.redisson.Redisson;
 import org.redisson.config.Config;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,18 +9,20 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RedissonConfig {
 
-    @Autowired
-    private RedisConfig redisConfig;
+    private final RedisConfig redisConfig;
+
+    public RedissonConfig(RedisConfig redisConfig) {
+        this.redisConfig = redisConfig;
+    }
 
     /**
      * 创建redission实列--用于获取或释放redis分布锁
      *
-     * @return
      */
     @Bean
     public Redisson redisson() {
         Config config = new Config();
-        if (redisConfig.getRedisPassword() == null || "".equals(redisConfig.getRedisPassword())) {
+        if (redisConfig.getRedisPassword() == null || redisConfig.getRedisPassword().isEmpty()) {
             config.useSingleServer().setAddress("redis://" + redisConfig.getRedisHost() + ":" + redisConfig.getRedisPort())
                     .setTimeout(redisConfig.getTimeout());
         } else {

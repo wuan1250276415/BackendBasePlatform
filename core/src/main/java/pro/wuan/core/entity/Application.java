@@ -17,10 +17,6 @@ import java.util.Set;
 @Table(name = "application")
 @Entity
 public class Application extends BaseEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Integer id;
 
     @Size(max = 255)
     @NotNull

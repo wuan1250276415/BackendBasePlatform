@@ -1,7 +1,12 @@
 spring:
+  rabbitmq:
+    host: 100.64.0.5
+    port: 5673
+    username: guest
+    password: wuanfuck321.
   data:
     redis:
-      host: 42.194.184.206
+      host: 100.64.0.5
       port: 6389
       password: wuanfuck321.
       connect-timeout: 10000
@@ -16,12 +21,10 @@ spring:
   application:
     name: api-gateway
   cloud:
-#    bus:
-#      id: ${spring.application.name}:${server.port}
-#      enabled: true
-#      trace:
-#        enabled: true
-#      destination: backendbaseplatform
+    inetutils:
+      timeout-seconds: 2
+      preferred-networks: 100.64.0.7
+      default-hostname: 100.64.0.7
     gateway:
       routes:
         - id: backendbaseplatform
@@ -69,7 +72,7 @@ spring:
                   - "NOT_FOUND"
             - StripPrefix=1
     consul:
-      host: 42.194.184.206
+      host: 100.64.0.5
       port: 8500
       discovery:
         instanceId: ${spring.application.name}:${spring.application.instance_id:${random.uuid}}
@@ -81,7 +84,19 @@ server:
 
 logging:
   pattern:
-    console: '%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n'
+#    console: '%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n'
     level: '%5p [${spring.application.name},%X{X-B3-TraceId:-},%X{X-B3-SpanId:-},%X{X-Span-Export:-}]'
   level:
     web: debug
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  zipkin:
+    tracing:
+      endpoint: http://100.64.0.5:9411/api/v2/spans

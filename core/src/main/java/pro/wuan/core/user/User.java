@@ -23,10 +23,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NamedEntityGraph(name = "User.roles", attributeNodes = @NamedAttributeNode("roles"))
 public class User extends BaseEntity implements UserDetails {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Integer id;
+
 
     @Size(max = 255)
     @NotNull
