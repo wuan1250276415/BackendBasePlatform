@@ -15,11 +15,12 @@ import pro.wuan.core.auth.pojo.AuthenticationResponse;
 import pro.wuan.core.auth.pojo.RegisterRequest;
 import pro.wuan.core.config.auth.JwtService;
 import pro.wuan.core.role.RoleRepository;
-import pro.wuan.core.token.Token;
 import pro.wuan.core.token.TokenRepository;
-import pro.wuan.core.token.TokenType;
-import pro.wuan.core.user.User;
 import pro.wuan.core.user.UserRepository;
+import pro.wuan.feignapi.userapi.entity.CurrentUser;
+import pro.wuan.feignapi.userapi.entity.Token;
+import pro.wuan.feignapi.userapi.entity.TokenType;
+import pro.wuan.feignapi.userapi.entity.User;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -46,7 +47,7 @@ public class AuthenticationService {
      * @return an AuthenticationResponse with the access and refresh tokens
      */
     public AuthenticationResponse register(RegisterRequest request) {
-        var user = User.builder()
+        User user = User.builder()
                 .username(request.getUsername())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .name(request.getName())
@@ -58,6 +59,8 @@ public class AuthenticationService {
         var savedUser = repository.save(user);
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
+        user.setToken(jwtToken);
+        CurrentUser.set(user); // set the current user
         saveUserToken(savedUser, jwtToken);
         return AuthenticationResponse.builder()
                 .accessToken(jwtToken)
@@ -85,6 +88,8 @@ public class AuthenticationService {
         var refreshToken = jwtService.generateRefreshToken(user);
         revokeAllUserTokens(user);
         saveUserToken(user, jwtToken);
+        user.setToken(jwtToken);
+        CurrentUser.set(user); // set the current user
         return AuthenticationResponse.builder()
                 .accessToken(jwtToken)
                 .refreshToken(refreshToken)
@@ -155,6 +160,8 @@ public class AuthenticationService {
                         .accessToken(accessToken)
                         .refreshToken(refreshToken)
                         .build();
+                user.setToken(accessToken);
+                CurrentUser.set(user); // set the current user
                 new ObjectMapper().writeValue(response.getOutputStream(), authResponse);
             }
         }

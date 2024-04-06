@@ -20,7 +20,7 @@ spring:
   #  main:
 #    web-application-type: reactive
   application:
-    name: backendbaseplatform
+    name: core
   datasource:
     url: jdbc:mysql://gz-cynosdbmysql-grp-94mi1uwn.sql.tencentcdb.com:20857/backend?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
     password: wuanfuck321.
@@ -58,10 +58,10 @@ server:
 
 logging:
   pattern:
-    console: '%d{yyyy-MM-dd HH:mm:ss} [%X{traceId},%X{spanId}] %-5level %logger{36} - %msg%n'
+#    console: '%d{yyyy-MM-dd HH:mm:ss} [%X{traceId},%X{spanId}] %-5level %logger{36} - %msg%n'
     level: '%5p [${spring.application.name},%X{X-B3-TraceId:-},%X{X-B3-SpanId:-},%X{X-Span-Export:-}]'
   level:
-    web: debug
+    web: info
 
 application:
   security:
@@ -70,3 +70,16 @@ application:
       expiration: 86400000 # a day
       refresh-token:
         expiration: 604800000 # 7 days
+
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  zipkin:
+    tracing:
+      endpoint: http://100.64.0.5:9411/api/v2/spans

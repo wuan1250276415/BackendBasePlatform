@@ -12,7 +12,7 @@ spring:
   #  main:
 #    web-application-type: reactive
   application:
-    name: backendbaseplatform
+    name: core
   datasource:
     url: jdbc:mysql://gz-cynosdbmysql-grp-94mi1uwn.sql.tencentcdb.com:20857/backend?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
     password: wuanfuck321.
@@ -44,9 +44,9 @@ server:
   port: 8082
 
 logging:
-  pattern:
-    console: '%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n'
-    level: '%5p [${spring.application.name},%X{X-B3-TraceId:-},%X{X-B3-SpanId:-},%X{X-Span-Export:-}]'
+#  pattern:
+#    console: '%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n'
+#    level: '%5p [${spring.application.name},%X{X-B3-TraceId:-},%X{X-B3-SpanId:-},%X{X-Span-Export:-}]'
   level:
     web: debug
 

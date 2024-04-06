@@ -12,6 +12,7 @@ import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import pro.wuan.feignapi.userapi.entity.Department;
 
 import java.util.List;
 
@@ -48,13 +49,13 @@ public class DepartmentController {
      */
     @GetMapping("/department/{name}")
     @Cacheable(value = "department", key = "#name")
-    public ResponseEntity<List<Department>> findByName(@PathVariable("name") String name) {
+    public List<Department> findByName(@PathVariable("name") String name) {
         Department department = new Department();
         department.setName(name);
         ExampleMatcher matcher = ExampleMatcher.matching()
             .withMatcher("name", ExampleMatcher.GenericPropertyMatchers.contains()); // 设置name字段为模糊匹配
         Example<Department> example = Example.of(department, matcher);
-        return ResponseEntity.ok(departmentRepository.findAll(example));
+        return departmentRepository.findAll(example);
     }
 
 }

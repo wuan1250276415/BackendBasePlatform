@@ -14,7 +14,7 @@ spring:
   main:
     web-application-type: reactive
   application:
-    name: api-gateway
+    name: gateway
   cloud:
     inetutils:
       timeout-seconds: 2
@@ -28,10 +28,10 @@ spring:
 #      destination: backendbaseplatform
     gateway:
       routes:
-        - id: backendbaseplatform
-          uri: lb://backendbaseplatform
+        - id: core
+          uri: lb://core
           predicates:
-            - Path=/backendbaseplatform/**
+            - Path=/api-core/**
           filters:
             - LocalResponseCache=30m,500MB
             - name: RequestRateLimiter
@@ -52,8 +52,8 @@ spring:
                   - "NOT_FOUND"
 
             - StripPrefix=1
-        - id: api-gateway
-          uri: lb://api-gateway
+        - id: gateway
+          uri: lb://gateway
           predicates:
             - Path=/api-gateway/**
           filters:

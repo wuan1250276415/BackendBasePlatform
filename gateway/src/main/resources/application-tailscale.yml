@@ -19,7 +19,7 @@ spring:
   main:
     web-application-type: reactive
   application:
-    name: api-gateway
+    name: gateway
   cloud:
     inetutils:
       timeout-seconds: 2
@@ -27,10 +27,10 @@ spring:
       default-hostname: 100.64.0.7
     gateway:
       routes:
-        - id: backendbaseplatform
-          uri: lb://backendbaseplatform
+        - id: core
+          uri: lb://core
           predicates:
-            - Path=/backendbaseplatform/**
+            - Path=/api-core/**
           filters:
             - LocalResponseCache=30m,500MB
             - name: RequestRateLimiter
@@ -51,8 +51,8 @@ spring:
                   - "NOT_FOUND"
 
             - StripPrefix=1
-        - id: api-gateway
-          uri: lb://api-gateway
+        - id: gateway
+          uri: lb://gateway
           predicates:
             - Path=/api-gateway/**
           filters:
@@ -87,7 +87,7 @@ logging:
 #    console: '%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n'
     level: '%5p [${spring.application.name},%X{X-B3-TraceId:-},%X{X-B3-SpanId:-},%X{X-Span-Export:-}]'
   level:
-    web: debug
+    web: info
 
 management:
   tracing:

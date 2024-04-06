@@ -1,12 +1,11 @@
 spring:
   data:
     redis:
-      host: 42.194.184.206
-      port: 6389
-      password: wuanfuck321.
+      host: localhost
+      port: 6379
       connect-timeout: 10000
       database: 0
-#  rabbitmq:
+  #  rabbitmq:
 #    host: 42.194.184.206
 #    port: 5672
 #    username: wuan
@@ -14,7 +13,7 @@ spring:
   main:
     web-application-type: reactive
   application:
-    name: api-gateway
+    name: gateway
   cloud:
 #    bus:
 #      id: ${spring.application.name}:${server.port}
@@ -24,10 +23,10 @@ spring:
 #      destination: backendbaseplatform
     gateway:
       routes:
-        - id: backendbaseplatform
-          uri: lb://backendbaseplatform
+        - id: core
+          uri: lb://core
           predicates:
-            - Path=/backendbaseplatform/**
+            - Path=/api-core/**
           filters:
             - LocalResponseCache=30m,500MB
             - name: RequestRateLimiter
@@ -48,8 +47,8 @@ spring:
                   - "NOT_FOUND"
 
             - StripPrefix=1
-        - id: api-gateway
-          uri: lb://api-gateway
+        - id: gateway
+          uri: lb://gateway
           predicates:
             - Path=/api-gateway/**
           filters:
@@ -69,7 +68,7 @@ spring:
                   - "NOT_FOUND"
             - StripPrefix=1
     consul:
-      host: 42.194.184.206
+      host: localhost
       port: 8500
       discovery:
         instanceId: ${spring.application.name}:${spring.application.instance_id:${random.uuid}}
@@ -81,7 +80,7 @@ server:
 
 logging:
   pattern:
-    console: '%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n'
+#    console: '%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n'
     level: '%5p [${spring.application.name},%X{X-B3-TraceId:-},%X{X-B3-SpanId:-},%X{X-Span-Export:-}]'
   level:
     web: debug

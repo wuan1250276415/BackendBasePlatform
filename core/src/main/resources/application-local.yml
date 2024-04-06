@@ -1,20 +1,24 @@
 spring:
-  jackson:
-    serialization:
-      WRITE_DATES_AS_TIMESTAMPS: false
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+    queueName: core
   data:
     redis:
-      host: 42.194.184.206
-      port: 6389
-      password: wuanfuck321.
+      host: localhost
+      port: 6379
       connect-timeout: 10000
+      password:
       database: 0
   #  main:
 #    web-application-type: reactive
   application:
-    name: backendbaseplatform
+    name: core
   datasource:
-    url: jdbc:mysql://gz-cynosdbmysql-grp-94mi1uwn.sql.tencentcdb.com:20857/backend?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/backend?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
     password: wuanfuck321.
     driver-class-name:  com.mysql.cj.jdbc.Driver
     username: root
@@ -27,11 +31,11 @@ spring:
         transaction:
           jta:
             platform: org.hibernate.engine.transaction.jta.platform.internal.JBossStandAloneJtaPlatform
-    #        format_sql: true
+            format_sql: true
     open-in-view: true
   cloud:
     consul:
-      host: 42.194.184.206
+      host: localhost
       port: 8500
       discovery:
         instanceId: ${spring.application.name}:${spring.application.instance_id:${random.uuid}}
@@ -47,19 +51,16 @@ management:
     web:
       exposure:
         include: '*'
-#  health:
-#    elasticsearch:
-#      enabled: true
   zipkin:
     tracing:
-      endpoint: http://42.194.184.206:9411/api/v2/spans
+      endpoint: http://localhost:9411/api/v2/spans
 
 server:
   port: 8082
 
 logging:
   pattern:
-    console: '%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n'
+#    console: '%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n'
     level: '%5p [${spring.application.name},%X{X-B3-TraceId:-},%X{X-B3-SpanId:-},%X{X-Span-Export:-}]'
   level:
     web: debug
