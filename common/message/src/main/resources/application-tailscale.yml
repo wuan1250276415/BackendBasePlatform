@@ -49,7 +49,7 @@ spring:
         instanceId: ${spring.application.name}:${spring.application.instance_id:${random.uuid}}
         prefer-ip-address: true
         service-name: ${spring.application.name}
-        tags: backendbaseplatform
+        tags: message
         fail-fast: true
 
 

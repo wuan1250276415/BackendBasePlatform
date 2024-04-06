@@ -13,8 +13,6 @@ spring:
       connect-timeout: 10000
       password:
       database: 0
-  #  main:
-#    web-application-type: reactive
   application:
     name: core
   datasource:
@@ -41,7 +39,7 @@ spring:
         instanceId: ${spring.application.name}:${spring.application.instance_id:${random.uuid}}
         prefer-ip-address: true
         service-name: ${spring.application.name}
-        tags: backendbaseplatform
+        tags: core
         fail-fast: true
 management:
   tracing:

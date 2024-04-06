@@ -10,8 +10,8 @@ spring:
 #    port: 5672
 #    username: wuan
 #    password: wuanfuck321.
-  main:
-    web-application-type: reactive
+#  main:
+#    web-application-type: reactive
   application:
     name: gateway
   cloud:
