@@ -8,6 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
@@ -16,6 +17,7 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan(value = {"pro.wuan.core", "pro.wuan.common.redis","pro.wuan.feignapi"})
 @EntityScan("pro.wuan.feignapi.userapi.entity")
 @Slf4j
+@EnableFeignClients(basePackages = {"pro.wuan.feignapi"})
 public class CoreApplication {
 
 	@Value("${spring.rabbitmq.queueName}")

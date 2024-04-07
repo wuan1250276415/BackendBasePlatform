@@ -33,7 +33,7 @@ spring:
         transaction:
           jta:
             platform: org.hibernate.engine.transaction.jta.platform.internal.JBossStandAloneJtaPlatform
-    #        format_sql: true
+            format_sql: true
     open-in-view: true
   cloud:
     consul:

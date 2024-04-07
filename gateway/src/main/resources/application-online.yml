@@ -11,15 +11,15 @@ spring:
 #    port: 5672
 #    username: wuan
 #    password: wuanfuck321.
-#  main:
-#    web-application-type: reactive
+  main:
+    web-application-type: reactive
   application:
     name: gateway
   cloud:
-    inetutils:
-      timeout-seconds: 2
-      preferred-networks: 100.64.0.6
-      default-hostname: 100.64.0.6
+#    inetutils:
+#      timeout-seconds: 2
+#      preferred-networks: 100.64.0.6
+#      default-hostname: 100.64.0.6
     #    bus:
 #      id: ${spring.application.name}:${server.port}
 #      enabled: true

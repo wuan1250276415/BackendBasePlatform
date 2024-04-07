@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import pro.wuan.feignapi.messageapi.entity.Message;
 import pro.wuan.feignapi.messageapi.fallback.MessageFeignClientFallback;
 
-@FeignClient(value = "message",path = "/feign/message",fallback = MessageFeignClientFallback.class)
+@FeignClient(value = "message",fallback = MessageFeignClientFallback.class)
 public interface MessageFeignClient {
 
     @PostMapping("/message/create")
