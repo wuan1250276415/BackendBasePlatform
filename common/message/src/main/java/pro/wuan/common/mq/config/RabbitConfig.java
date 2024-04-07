@@ -92,7 +92,7 @@ public class RabbitConfig {
      * Logs the received message.
      * @param in the received message
      */
-    @RabbitListener(queues = {"core","queue"})
+    @RabbitListener(queues = {"message"})
     void listen(String in) {
         log.info("Mq接收到消息: {}", in);
     }
@@ -104,7 +104,7 @@ public class RabbitConfig {
      */
     @Bean
     Queue queue() {
-        return new Queue("queue");
+        return new Queue("message");
     }
 
 }

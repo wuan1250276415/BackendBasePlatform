@@ -5,6 +5,7 @@ spring:
       port: 6379
       connect-timeout: 10000
       database: 0
+      password: wuanfuck321.
   #  rabbitmq:
 #    host: 42.194.184.206
 #    port: 5672

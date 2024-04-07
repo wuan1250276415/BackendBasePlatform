@@ -1,4 +1,11 @@
 spring:
+  rabbitmq:
+    host: 100.64.0.5
+    port: 5673
+    username: guest
+    password: wuanfuck321.
+    virtual-host: /
+    queueName: message
   cache:
     type: redis
   jackson:

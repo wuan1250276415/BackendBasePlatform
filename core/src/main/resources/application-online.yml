@@ -1,4 +1,13 @@
 spring:
+  cache:
+    type: redis
+  rabbitmq:
+    host: 42.194.184.206
+    port: 5673
+    username: guest
+    password: wuanfuck321.
+    virtual-host: /
+    queueName: core
   jackson:
      serialization:
        WRITE_DATES_AS_TIMESTAMPS: false
@@ -48,7 +57,7 @@ logging:
 #    console: '%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n'
 #    level: '%5p [${spring.application.name},%X{X-B3-TraceId:-},%X{X-B3-SpanId:-},%X{X-Span-Export:-}]'
   level:
-    web: debug
+    web: trace
 
 application:
   security:
@@ -57,3 +66,15 @@ application:
       expiration: 86400000 # a day
       refresh-token:
         expiration: 604800000 # 7 days
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  zipkin:
+    tracing:
+      endpoint: http://42.194.184.206:9411/api/v2/spans

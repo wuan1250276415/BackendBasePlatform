@@ -5,6 +5,7 @@ spring:
     username: guest
     password: guest
     virtual-host: /
+    queueName: message
   data:
     redis:
       host: localhost

@@ -12,9 +12,6 @@
     <name>redis</name>
     <description>redis</description>
     <packaging>jar</packaging>
-    <properties>
-        <java.version>17</java.version>
-    </properties>
     <dependencies>
 
         <dependency>

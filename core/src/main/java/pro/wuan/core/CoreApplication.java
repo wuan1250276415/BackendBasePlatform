@@ -13,7 +13,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication(proxyBeanMethods = false)
 @EnableDiscoveryClient
-@ComponentScan(value = {"pro.wuan.core", "pro.wuan.common.redis"})
+@ComponentScan(value = {"pro.wuan.core", "pro.wuan.common.redis","pro.wuan.feignapi"})
 @EntityScan("pro.wuan.feignapi.userapi.entity")
 @Slf4j
 public class CoreApplication {
