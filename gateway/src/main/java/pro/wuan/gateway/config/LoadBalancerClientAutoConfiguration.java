@@ -1,14 +1,14 @@
 package pro.wuan.gateway.config;
 
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
-import org.springframework.cloud.netflix.ribbon.RibbonAutoConfiguration;
+import com.alibaba.cloud.nacos.NacosDiscoveryProperties;
+import com.alibaba.cloud.nacos.loadbalancer.NacosLoadBalancer;
+import jakarta.annotation.Resource;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.loadbalancer.core.ReactorLoadBalancer;
+import org.springframework.cloud.loadbalancer.core.ServiceInstanceListSupplier;
+import org.springframework.cloud.loadbalancer.support.LoadBalancerClientFactory;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.reactive.DispatcherHandler;
-import pro.wuan.gateway.filter.LoadBalancerClientFilter;
+import org.springframework.core.env.Environment;
 
 /**
  * @description:
@@ -16,14 +16,15 @@ import pro.wuan.gateway.filter.LoadBalancerClientFilter;
  * @date: 2021/8/18 16:29
  */
 
-@Configuration
-@ConditionalOnClass({LoadBalancerClient.class, RibbonAutoConfiguration.class, DispatcherHandler.class})
-@AutoConfigureAfter(RibbonAutoConfiguration.class)
 public class LoadBalancerClientAutoConfiguration {
 
+    // 注入当前服务的nacos的配置信息
+    @Resource
+    private NacosDiscoveryProperties nacosDiscoveryProperties;
     @Bean
-    @ConditionalOnBean(LoadBalancerClient.class)
-    public LoadBalancerClientFilter loadBalancerClientFilter(LoadBalancerClient client) {
-        return new LoadBalancerClientFilter(client);
+    ReactorLoadBalancer<ServiceInstance> nacosLoadBalancer(Environment environment,
+                                                           LoadBalancerClientFactory loadBalancerClientFactory) {
+        String name = environment.getProperty(LoadBalancerClientFactory.PROPERTY_NAME);
+        return new NacosLoadBalancer(loadBalancerClientFactory.getLazyProvider(name, ServiceInstanceListSupplier.class), name, nacosDiscoveryProperties);
     }
 }

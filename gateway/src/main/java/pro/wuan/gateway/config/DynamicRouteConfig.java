@@ -12,7 +12,7 @@ import pro.wuan.gateway.route.NacosRouteDefinitionRepository;
  * 动态路由配置
  */
 @Configuration
-@ConditionalOnProperty(prefix = "tellhow.gateway.dynamicRoute", name = "enabled", havingValue = "true")
+@ConditionalOnProperty(prefix = "gateway.dynamicRoute", name = "enabled", havingValue = "true")
 public class DynamicRouteConfig  {
     @Autowired
     private ApplicationEventPublisher publisher;
@@ -21,7 +21,7 @@ public class DynamicRouteConfig  {
      * Nacos实现方式
      */
     @Configuration
-    @ConditionalOnProperty(prefix = "tellhow.gateway.dynamicRoute", name = "dataType", havingValue = "nacos", matchIfMissing = true)
+    @ConditionalOnProperty(prefix = "gateway.dynamicRoute", name = "dataType", havingValue = "nacos", matchIfMissing = true)
     public class NacosDynRoute {
         @Autowired
         private NacosConfigProperties nacosConfigProperties;

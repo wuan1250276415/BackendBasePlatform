@@ -30,7 +30,7 @@ import java.util.List;
  */
 @Data
 @RefreshScope
-@ConfigurationProperties("tellhow.auth")
+@ConfigurationProperties(value = "tellhow.auth")
 @Component
 public class AuthProperties {
 

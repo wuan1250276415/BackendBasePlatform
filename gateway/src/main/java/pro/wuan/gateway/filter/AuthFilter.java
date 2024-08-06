@@ -84,13 +84,13 @@ public class AuthFilter implements GlobalFilter, Ordered {
         //获取token
         String token = exchange.getRequest().getHeaders().getFirst(SecurityConstants.REQUEST_AUTH_HEADER);
         //是否有token
-        Boolean hasToken = StringUtils.isNotEmpty(token);
+        boolean hasToken = StringUtils.isNotEmpty(token);
         //获取请求地址
         String url = exchange.getRequest().getURI().getPath();
         log.info("获取到的url地址:{}", url);
         log.info("获取到的token:{}", token);
         //判断是否忽略token认证地址
-        if (!hasToken && isSkip(url)) {
+        if (!hasToken && !isSkip(url)) {
             log.info("过滤uri,{}", url);
             return chain.filter(exchange);
         }

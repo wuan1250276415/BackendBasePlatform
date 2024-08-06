@@ -11,6 +11,7 @@ import org.springframework.cloud.gateway.event.RefreshRoutesEvent;
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinitionRepository;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.annotation.Configuration;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -21,6 +22,7 @@ import java.util.concurrent.Executor;
 /**
  */
 @Slf4j
+@Configuration
 public class NacosRouteDefinitionRepository implements RouteDefinitionRepository {
     private static final String SCG_DATA_ID = "gateway-router";
     private static final String SCG_GROUP_ID = "cloud";
@@ -33,6 +35,7 @@ public class NacosRouteDefinitionRepository implements RouteDefinitionRepository
         this.publisher = publisher;
         this.nacosConfigProperties = nacosConfigProperties;
     }
+
 
     /**
      * 添加Nacos监听
@@ -52,7 +55,7 @@ public class NacosRouteDefinitionRepository implements RouteDefinitionRepository
                 }
             });
         } catch (NacosException e) {
-            log.error("nacos-addListener-error{}", e);
+            log.error("nacos-addListener-error,{}", e.getMessage());
         }
     }
 
@@ -76,13 +79,13 @@ public class NacosRouteDefinitionRepository implements RouteDefinitionRepository
     @Override
     public Flux<RouteDefinition> getRouteDefinitions() {
         try {
-
-            String content = nacosConfigProperties.configServiceInstance().getConfig(SCG_DATA_ID, SCG_GROUP_ID,5000);
-            log.info("动态获取网关配置:"+content);
+            NacosConfigManager nacosConfigManager = new NacosConfigManager(nacosConfigProperties);
+            String content = nacosConfigManager.getConfigService().getConfig(SCG_DATA_ID, SCG_GROUP_ID,5000);
+            log.info("动态获取网关配置:{}", content);
             List<RouteDefinition> routeDefinitions = getListByStr(content);
             return Flux.fromIterable(routeDefinitions);
         } catch (NacosException e) {
-            System.out.print("getRouteDefinitions by nacos error"+e);
+            log.error("getRouteDefinitions by nacos error:{}", e.getMessage());
             return null;
         }
     }

@@ -51,8 +51,8 @@ public class TokenInterceptor implements HandlerInterceptor {
         String token = request.getHeader(SecurityConstants.REQUEST_AUTH_HEADER);
         if (StringUtils.isEmpty(token)) {
             log.warn("token is empty");
-            return authErro(response, "令牌不能为空，请登录!", HttpStatus.UNAUTHORIZED);
-//            return true;
+//            return authErro(response, "令牌不能为空，请登录!", HttpStatus.UNAUTHORIZED);
+            return true;
         }
         //线程变量存储用户信息
         String account = JwtUtils.getClaim(token, SecurityConstants.ACCOUNT);
