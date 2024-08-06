@@ -2,8 +2,8 @@ package pro.wuan.core.user;
 
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.security.core.userdetails.User;
 import pro.wuan.core.base.repository.BaseRepository;
-import pro.wuan.feignapi.userapi.entity.User;
 
 import java.util.Optional;
 @EnableJpaRepositories

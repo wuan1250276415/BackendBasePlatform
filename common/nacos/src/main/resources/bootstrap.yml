@@ -1,0 +1,20 @@
+spring:
+  profiles:
+    active: ${profileActive}
+  cloud:
+    nacos:
+      server-addr: 124.221.117.35:8848
+      username: nacos
+      password: wuanfuck321.
+      config:
+        file-extension: yml
+        shared-configs[0]:
+          data-id: common-${spring.profiles.active}.yml # 配置文件名-Data Id
+          group: cloud   # 默认为DEFAULT_GROUP
+          refresh: true          # 是否动态刷新，默认为false
+        group: cloud
+      discovery:
+        group: cloud
+#        ip: ${nacosIp}
+#        port: ${nacosPort}
+#        register-enabled: false

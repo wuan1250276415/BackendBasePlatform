@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pro.wuan.feignapi.userapi.entity.Role;
 
 import java.util.Set;
 

@@ -17,10 +17,6 @@ import pro.wuan.core.config.auth.JwtService;
 import pro.wuan.core.role.RoleRepository;
 import pro.wuan.core.token.TokenRepository;
 import pro.wuan.core.user.UserRepository;
-import pro.wuan.feignapi.userapi.entity.CurrentUser;
-import pro.wuan.feignapi.userapi.entity.Token;
-import pro.wuan.feignapi.userapi.entity.TokenType;
-import pro.wuan.feignapi.userapi.entity.User;
 
 import java.io.IOException;
 import java.util.HashSet;

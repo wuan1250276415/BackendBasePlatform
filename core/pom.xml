@@ -7,7 +7,7 @@
         <artifactId>backendbaseplatform</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>core</artifactId>
+    <artifactId>core-sys</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>core</name>
     <description>core</description>

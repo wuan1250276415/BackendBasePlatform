@@ -1,8 +1,8 @@
 spring:
   data:
     redis:
-      host: 42.194.184.206
-      port: 6389
+      host: 124.221.117.35
+      port: 6379
       password: wuanfuck321.
-      connect-timeout: 10000
-      database: 0
+      timeout: 50000
+      database: 1

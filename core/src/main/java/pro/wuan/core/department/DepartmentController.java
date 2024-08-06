@@ -12,7 +12,6 @@ import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import pro.wuan.feignapi.userapi.entity.Department;
 
 import java.util.List;
 

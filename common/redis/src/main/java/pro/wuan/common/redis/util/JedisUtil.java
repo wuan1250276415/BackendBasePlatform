@@ -1,5 +1,6 @@
 package pro.wuan.common.redis.util;
 
+import cn.hutool.core.util.ObjectUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 public class JedisUtil {
 
     @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
+    private RedisTemplate redisTemplate;
     private static final Logger log = LoggerFactory.getLogger(JedisUtil.class);
 
     /**
@@ -75,7 +76,8 @@ public class JedisUtil {
      */
     public void removePattern(final String pattern) {
         Set<String> keys = redisTemplate.keys(pattern);
-        if (keys != null && keys.size() > 0) redisTemplate.delete(keys);
+        if (keys.size() > 0)
+            redisTemplate.delete(keys);
     }
 
     /**
@@ -101,7 +103,7 @@ public class JedisUtil {
      * @return
      */
     public boolean exists(final String key) {
-        return Boolean.TRUE.equals(redisTemplate.hasKey(key));
+        return redisTemplate.hasKey(key);
     }
 
     /**
@@ -291,6 +293,73 @@ public class JedisUtil {
      * @param key
      */
     public Set<String> getKeys(String key) {
-        return redisTemplate.keys(key + "*");
+        Set<String> keys = redisTemplate.keys(key + "*");
+        return keys;
     }
+
+    /**
+     * 哈希 添加 (H key, HK hashKey, HV value)
+     *
+     * @param key
+     * @param hashKey
+     * @param value
+     */
+    public void hmSet(String key, Object hashKey, Object value, Long expireTime) {
+        HashOperations<String, Object, Object> hash = redisTemplate.opsForHash();
+        hash.put(key, hashKey, value);
+        if(ObjectUtil.isNotEmpty(expireTime)){
+            redisTemplate.expire(key, expireTime, TimeUnit.SECONDS);
+        }
+    }
+    /**
+     * 哈希 删除
+     *
+     * @param key
+     * @param hashKey
+     */
+    public Long hmDelete(String key, Object... hashKey) {
+        Long i = redisTemplate.opsForHash().delete(key, hashKey);
+        return i;
+    }
+
+    /**
+     * 哈希 判断hashKey是否存在
+     *
+     * @param key
+     * @param hashKey
+     * @return
+     */
+    public Boolean hmhasKey(String key, Object hashKey) {
+        Boolean aBoolean = redisTemplate.opsForHash().hasKey(key, hashKey);
+        return aBoolean;
+    }
+    /**
+     * 哈希 获取key对应的map中所有的值
+     *
+     * @param key
+     * @return
+     */
+    public List hmGetValues(String key) {
+        return redisTemplate.opsForHash().values(key);
+    }
+    /**
+     * 哈希 获取key对应的中所有的
+     *
+     * @param key
+     * @return
+     */
+    public Set<Object> hmGetKeys(String key) {
+        return redisTemplate.opsForHash().keys(key);
+    }
+
+    /**
+     * 哈希 increment
+     *
+     * @param key
+     * @return
+     */
+    public long hmIncrement(String key,Object hashKey,long data) {
+        return redisTemplate.opsForHash().increment(key,hashKey,data);
+    }
+
 }

@@ -2,7 +2,6 @@ package pro.wuan.core.token;
 
 import org.springframework.data.jpa.repository.Query;
 import pro.wuan.core.base.repository.BaseRepository;
-import pro.wuan.feignapi.userapi.entity.Token;
 
 import java.util.List;
 import java.util.Optional;

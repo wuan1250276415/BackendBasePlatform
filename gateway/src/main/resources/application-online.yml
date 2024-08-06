@@ -1,107 +1,35 @@
+server:
+  port: 8230
 spring:
-  data:
-    redis:
-      host: 42.194.184.206
-      port: 6389
-      password: wuanfuck321.
-      connect-timeout: 10000
-      database: 0
-#  rabbitmq:
-#    host: 42.194.184.206
-#    port: 5672
-#    username: wuan
-#    password: wuanfuck321.
-  main:
-    web-application-type: reactive
   application:
     name: gateway
   cloud:
-#    inetutils:
-#      timeout-seconds: 2
-#      preferred-networks: 100.64.0.6
-#      default-hostname: 100.64.0.6
-    #    bus:
-#      id: ${spring.application.name}:${server.port}
-#      enabled: true
-#      trace:
-#        enabled: true
-#      destination: backendbaseplatform
-    gateway:
-      routes:
-        - id: core
-          uri: lb://core
-          predicates:
-            - Path=/api-core/**
-          filters:
-            - LocalResponseCache=30m,500MB
-            - name: RequestRateLimiter
-              args:
-                # 令牌桶每秒填充平均速率
-                redis-rate-limiter.replenishRate: 10
-                # 令牌桶的上限
-                redis-rate-limiter.burstCapacity: 20
-                # 使用SpEL表达式从Spring容器中获取Bean对象
-                key-resolver: "#{@userKeyResolver}"
-            - Retry=3,INTERNAL_SERVER_ERROR,GET,10ms,50ms,2,false
-            - name: CircuitBreaker
-              args:
-                name: myCircuitBreaker
-                fallbackUri: forward:/fallback
-                statusCodes:
-                  - 500
-                  - "NOT_FOUND"
-
-            - StripPrefix=1
-        - id: gateway
-          uri: lb://gateway
-          predicates:
-            - Path=/api-gateway/**
-          filters:
-            - LocalResponseCache=30m,500MB
-            - name: RequestRateLimiter
-              args:
-                redis-rate-limiter.replenishRate: 10
-                redis-rate-limiter.burstCapacity: 20
-                key-resolver: "#{@userKeyResolver}"
-            - Retry=3,INTERNAL_SERVER_ERROR,GET,10ms,50ms,2,false
-            - name: CircuitBreaker
-              args:
-                name: myCircuitBreaker
-                fallbackUri: forward:/fallback
-                statusCodes:
-                  - 500
-                  - "NOT_FOUND"
-            - StripPrefix=1
-        - id: message
-          uri: lb://message
-          predicates:
-            - Path=/api-message/**
-          filters:
-            - LocalResponseCache=30m,500MB
-            - name: RequestRateLimiter
-              args:
-                redis-rate-limiter.replenishRate: 10
-                redis-rate-limiter.burstCapacity: 20
-                key-resolver: "#{@userKeyResolver}"
-            - Retry=3,INTERNAL_SERVER_ERROR,GET,10ms,50ms,2,false
-            - name: CircuitBreaker
-              args:
-                name: myCircuitBreaker
-                fallbackUri: forward:/fallback
-                statusCodes:
-                  - 500
-                  - "NOT_FOUND"
-            - StripPrefix=1
-    consul:
-      host: 42.194.184.206
-      port: 8500
+    nacos:
       discovery:
-        instanceId: ${spring.application.name}:${spring.application.instance_id:${random.uuid}}
-        service-name: ${spring.application.name}
-        tags: api-gateway
-        prefer-ip-address: true
-server:
-  port: 8081
+        server-addr: 124.221.117.35:8848
+        username: nacos
+        password: wuanfuck321.
+        group: cloud
+      config:
+        import-check:
+          enabled: false
+        server-addr: 124.221.117.35:8848
+        username: nacos
+        password: wuanfuck321.
+        group: cloud
+        prefix: gateway-online.yaml
+    gateway:
+      discovery:
+        locator:
+          lowerCaseServiceId: true
+          enabled: false
+  data:
+    redis:
+      host: 124.221.117.35
+      port: 6379
+      password: wuanfuck321.
+      timeout: 50000
+      database: 1
 
 logging:
   pattern:
@@ -109,7 +37,6 @@ logging:
     level: '%5p [${spring.application.name},%X{X-B3-TraceId:-},%X{X-B3-SpanId:-},%X{X-Span-Export:-}]'
   level:
     web: trace
-
 management:
   tracing:
     sampling:
@@ -121,3 +48,5 @@ management:
   zipkin:
     tracing:
       endpoint: http://42.194.184.206:9411/api/v2/spans
+
+test: ${tellhow.datasource.ip}
