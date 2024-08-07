@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pro.wuan.sys.role.mapper.OrgRoleMapper">
+
+	<resultMap id="OrgRoleMap" type="pro.wuan.userapi.entity.OrgRoleModel">
+		<result property="id" column="id"/>
+		<result property="name" column="name"/>
+		<result property="type" column="type"/>
+		<result property="sort" column="sort"/>
+		<result property="remark" column="remark"/>
+		<result property="appId" column="app_id"/>
+		<result property="organId" column="organ_id"/>
+		<result property="tenantId" column="tenant_id"/>
+		<result property="deleteFlag" column="delete_flag"/>
+		<result property="createUserId" column="create_user_id"/>
+		<result property="createTime" column="create_time"/>
+		<result property="updateUserId" column="update_user_id"/>
+		<result property="updateTime" column="update_time"/>
+	</resultMap>
+
+	<!-- 根据用户id获取关联的角色列表 -->
+	<select id="getRoleListByUserId" resultMap="OrgRoleMap">
+		select distinct r.* from org_role r, org_user_role ur
+		 where r.delete_flag='f'
+		 <if test="appId != null">
+			and r.app_id=#{appId}
+		 </if>
+		   and r.id=ur.role_id and ur.user_id=#{userId}
+		 order by r.sort
+	</select>
+
+</mapper>

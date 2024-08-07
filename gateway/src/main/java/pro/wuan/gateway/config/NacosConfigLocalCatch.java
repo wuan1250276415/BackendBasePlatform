@@ -1,4 +1,4 @@
-//package pro.wuan.gateway.config;//package com.tellhow.gateway.config;
+//package pro.wuan.gateway.config;//package pro.wuan.gateway.config;
 //
 //import com.alibaba.cloud.nacos.NacosConfigProperties;
 //import com.alibaba.nacos.api.NacosFactory;

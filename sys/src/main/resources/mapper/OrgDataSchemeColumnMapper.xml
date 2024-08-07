@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pro.wuan.sys.privilege.mapper.OrgDataSchemeColumnMapper">
+
+	<resultMap id="OrgDataSchemeColumnMap" type="pro.wuan.userapi.entity.OrgDataSchemeColumnModel">
+		<result property="id" column="id"/>
+		<result property="columnName" column="column_name"/>
+		<result property="columnCode" column="column_code"/>
+		<result property="columnType" column="column_type"/>
+		<result property="conditionContent" column="condition_content"/>
+		<result property="remark" column="remark"/>
+		<result property="menuResourceId" column="menu_resource_id"/>
+		<result property="deleteFlag" column="delete_flag"/>
+		<result property="createUserId" column="create_user_id"/>
+		<result property="createTime" column="create_time"/>
+		<result property="updateUserId" column="update_user_id"/>
+		<result property="updateTime" column="update_time"/>
+	</resultMap>
+
+	<!-- 分页查询数据方案字段 -->
+	<select id="selectPage" parameterType="pro.wuan.core.model.PageSearchParam" resultType="pro.wuan.userapi.entity.OrgDataSchemeColumnModel">
+		select dsc.*,
+			   (select string_agg(dscs.condition_symbol,',') from org_data_scheme_column_symbol dscs
+				 where dsc.id=dscs.data_scheme_column_id) conditionSymbolString
+		  from org_data_scheme_column dsc
+		 where dsc.delete_flag='f' and dsc.menu_resource_id=#{menuId}
+		<choose>
+			<when test="param.sortField!=null and param.sortField!='' and param.sortOrder!=null and param.sortOrder!=''">
+				order by dsc.#{param.sortField} #{param.sortOrder}
+			</when>
+			<otherwise>
+				order by dsc.create_time desc
+			</otherwise>
+		</choose>
+	</select>
+
+	<!-- 根据菜单资源id获取数据方案字段及条件符号关联表VO列表 -->
+	<select id="getDataSchemeColumnAndSymbolVOList" resultType="pro.wuan.sys.privilege.vo.DataSchemeColumnAndSymbolVO">
+	  	select dsc.id columnId, dsc.column_name columnName, dsc.column_code columnCode, dsc.column_type columnType,
+       		   dsc.condition_content conditionContent, dscs.id symbolId, dscs.condition_symbol conditionSymbol
+		  from org_data_scheme_column dsc, org_data_scheme_column_symbol dscs
+		 where dsc.menu_resource_id=#{menuResourceId} and dsc.delete_flag='f'
+		   and dsc.id=dscs.data_scheme_column_id
+			 order by dsc.id, dscs.id
+	</select>
+
+	<!-- 根据菜单资源id获取数据方案字段及条件符号关联表idVO列表 -->
+	<select id="getDataSchemeColumnAndSymbolIdVOList" resultType="pro.wuan.sys.privilege.vo.DataSchemeColumnAndSymbolIdVO">
+	  	select dsc.id dataSchemeColumnId, dscs.id dataSchemeColumnSymbolId
+		  from org_data_scheme_column dsc, org_data_scheme_column_symbol dscs
+		 where dsc.menu_resource_id=#{menuResourceId} and dsc.delete_flag='f'
+		   and dsc.id=dscs.data_scheme_column_id
+	</select>
+
+</mapper>

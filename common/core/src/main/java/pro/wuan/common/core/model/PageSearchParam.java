@@ -2,6 +2,7 @@ package pro.wuan.common.core.model;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 
 /**
@@ -10,6 +11,7 @@ import lombok.Data;
  * @blame
  * @since 2020/7/16
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class PageSearchParam extends BaseSearchParam{
 

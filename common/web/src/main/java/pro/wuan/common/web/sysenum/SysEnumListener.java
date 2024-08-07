@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import pro.wuan.common.core.annotation.sysenum.EnumType;
 
 /**
- * 系统启动后，加载com.tellhow当中的枚举类型
+ * 系统启动后，加载pro.wuan当中的枚举类型
  *
  * @program: tellhowcloud
  * @author: HawkWang
@@ -29,7 +29,7 @@ public class SysEnumListener implements ApplicationListener<ApplicationReadyEven
      */
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
-        ClassUtil.scanPackage("com.tellhow").stream().filter(clazz -> {
+        ClassUtil.scanPackage("pro.wuan").stream().filter(clazz -> {
             if (clazz.isEnum() && clazz.isAnnotationPresent(EnumType.class)) {
                 return true;
             }

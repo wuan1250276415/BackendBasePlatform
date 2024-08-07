@@ -116,10 +116,10 @@ public class ClassPathCandidateComponentScanner {
 	public static void main(String[] args) throws IOException {
 		ClassPathCandidateComponentScanner scanner = new ClassPathCandidateComponentScanner();
 		//要扫描的包名
-		String packageName = "com.tellhow";
-//		String reg="com.tellhow.*.entity.*";
-//		String reg1="com.tellhow.*.model.*";
-//		System.out.println(Pattern.matches(reg1,"com.tellhow.sys.menu.model.SysMenuModel.class"));
+		String packageName = "pro.wuan";
+//		String reg="pro.wuan.*.entity.*";
+//		String reg1="pro.wuan.*.model.*";
+//		System.out.println(Pattern.matches(reg1,"pro.wuan.sys.menu.model.SysMenuModel.class"));
 		//获取该包下所有的类名称
 		Set<Class<?>> set = ClassPathCandidateComponentScanner.findCandidateComponents(packageName);
 //		System.out.println(set.size());

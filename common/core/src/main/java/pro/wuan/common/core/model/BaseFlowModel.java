@@ -2,7 +2,9 @@ package pro.wuan.common.core.model;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class BaseFlowModel extends BaseTenantModel {
 

@@ -2,6 +2,7 @@ package pro.wuan.feignapi.userapi.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import pro.wuan.common.core.model.BaseTenantModel;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
  * @author: libra
  * @date: 2021-08-30 10:40:59
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class OrgUserTsetModel extends BaseTenantModel {
 

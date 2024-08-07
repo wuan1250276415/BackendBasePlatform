@@ -13,16 +13,17 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>redis</module>
-        <module>log</module>
-        <module>sentinel</module>
+        <module>nacos</module>
         <module>core</module>
         <module>db</module>
-        <module>nacos</module>
-        <module>mq</module>
-        <module>auth</module>
-        <module>web</module>
+        <module>redis</module>
         <module>cloud</module>
+        <module>seata</module>
+        <module>auth</module>
+        <module>mq</module>
+        <module>log</module>
+        <module>web</module>
+        <module>sentinel</module>
     </modules>
 
     <dependencies>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pro.wuan.sys.privilege.mapper.OrgDataSchemeMapper">
+
+	<resultMap id="OrgDataSchemeMap" type="pro.wuan.userapi.entity.OrgDataSchemeModel">
+		<result property="id" column="id"/>
+		<result property="name" column="name"/>
+		<result property="conditionJson" column="condition_json"/>
+		<result property="conditionExpression" column="condition_expression"/>
+		<result property="menuResourceId" column="menu_resource_id"/>
+		<result property="deleteFlag" column="delete_flag"/>
+		<result property="createUserId" column="create_user_id"/>
+		<result property="createTime" column="create_time"/>
+		<result property="updateUserId" column="update_user_id"/>
+		<result property="updateTime" column="update_time"/>
+	</resultMap>
+
+	<!-- 根据用户id，应用id获取关联的数据方案列表 -->
+	<select id="getDataSchemeListByUserAndApp" resultMap="OrgDataSchemeMap">
+		select distinct ds.* from org_data_scheme ds, org_role_privilege rp, org_role r, org_user_role ur
+		 where ds.delete_flag='f' and ds.id=rp.privilege_id
+		   and rp.type='data' and rp.role_id=r.id
+		   and r.delete_flag='f' and r.app_id=#{appId} and r.id=ur.role_id
+		   and ur.user_id=#{userId}
+	</select>
+
+	<!-- 根据角色id列表获取关联的数据方案列表 -->
+	<select id="getDataSchemeListByRoleIdList" resultMap="OrgDataSchemeMap">
+		select distinct ds.* from org_data_scheme ds, org_role_privilege rp
+		 where ds.delete_flag='f' and ds.id=rp.privilege_id
+		   and rp.type='data'
+		   and rp.role_id in
+			<foreach collection="roleIdList" item="item" index="index" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+	</select>
+
+</mapper>

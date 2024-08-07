@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pro.wuan.sys.privilege.mapper.OrgListColumnMapper">
+
+	<resultMap id="OrgListColumnMap" type="pro.wuan.userapi.entity.OrgListColumnModel">
+		<result property="id" column="id"/>
+		<result property="columnName" column="column_name"/>
+		<result property="columnCode" column="column_code"/>
+		<result property="status" column="status"/>
+		<result property="remark" column="remark"/>
+		<result property="menuResourceId" column="menu_resource_id"/>
+		<result property="deleteFlag" column="delete_flag"/>
+		<result property="createUserId" column="create_user_id"/>
+		<result property="createTime" column="create_time"/>
+		<result property="updateUserId" column="update_user_id"/>
+		<result property="updateTime" column="update_time"/>
+	</resultMap>
+
+	<!-- 根据应用id获取关联的列表字段列表 -->
+	<select id="getListColumnListByAppId" resultMap="OrgListColumnMap">
+		select distinct lc.* from org_list_column lc, org_business_resource br
+		 where lc.delete_flag='f' and lc.menu_resource_id=br.id
+		   and br.delete_flag='f' and br.type in ('catalog', 'menu')
+		   and br.app_id=#{appId}
+	</select>
+
+	<!-- 根据用户id，应用id获取关联的列表字段列表 -->
+	<select id="getListColumnListByUserAndApp" resultMap="OrgListColumnMap">
+		select distinct lc.* from org_list_column lc, org_role_privilege rp, org_role r, org_user_role ur
+		 where lc.delete_flag='f' and lc.id=rp.privilege_id
+		   and rp.type='list' and rp.role_id=r.id
+		   and r.delete_flag='f' and r.app_id=#{appId} and r.id=ur.role_id
+		   and ur.user_id=#{userId}
+	</select>
+
+	<!-- 根据角色id列表获取关联的列表字段列表 -->
+	<select id="getListColumnListByRoleIdList" resultMap="OrgListColumnMap">
+		select distinct lc.* from org_list_column lc, org_role_privilege rp
+		 where lc.delete_flag='f' and lc.id=rp.privilege_id
+		   and rp.type='list'
+		   and rp.role_id in
+			<foreach collection="roleIdList" item="item" index="index" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+	</select>
+
+</mapper>

@@ -1,4 +1,4 @@
-package pro.wuan.common.mq.processor;//package com.tellhow.mq.processor;
+package pro.wuan.common.mq.processor;//package pro.wuan.mq.processor;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;

@@ -1,6 +1,8 @@
 server:
   port: 8230
 spring:
+  application:
+    name: gateway
   cloud:
     nacos:
       server-addr: 124.221.117.35:8848
@@ -14,11 +16,13 @@ spring:
           data-id: common-online.yaml # 配置文件名-Data Id
           group: cloud   # 默认为DEFAULT_GROUP
           refresh: true
+        shared-configs[1]:
+          data-id: gateway-online.yaml # 配置文件名-Data Id
+          group: cloud   # 默认为DEFAULT_GROUP
+          refresh: true
         group: cloud
       discovery:
         group: cloud
-  application:
-    name: gateway
   data:
     redis:
       host: 124.221.117.35
