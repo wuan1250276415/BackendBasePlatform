@@ -1,4 +1,6 @@
 spring:
+  config:
+    import: nacos:bootstrap.yaml
   profiles:
     active: @profileActive@
 

@@ -30,7 +30,6 @@
         <spring-boot.version>3.2.4</spring-boot.version>
         <resilience4j.version>2.2.0</resilience4j.version>
         <spring-cloud-starter.version>4.1.3</spring-cloud-starter.version>
-        <javax.servlet-api.version>4.0.1</javax.servlet-api.version>
         <io.springfox.verion>3.0.0</io.springfox.verion>
         <commons-pool2.version>2.11.1</commons-pool2.version>
         <commons-compress.version>1.26.2</commons-compress.version>
@@ -39,7 +38,6 @@
         <java-jwt.version>4.4.0</java-jwt.version>
         <druid.version>1.2.23</druid.version>
         <jakarta.version>3.1.0</jakarta.version>
-        <jakarta.servlet-api.version>6.1.0</jakarta.servlet-api.version>
         <hutool-all.version>5.8.29</hutool-all.version>
         <alibaba.cloud.version>2023.0.1.2</alibaba.cloud.version>
         <seata.version>2.0.0</seata.version>
@@ -50,6 +48,7 @@
         <apiguardian-api.version>1.1.2</apiguardian-api.version>
         <reactor-core.version>3.6.8</reactor-core.version>
         <transmittable-thread-local.version>2.14.5</transmittable-thread-local.version>
+        <nacos-client.version>2.3.3</nacos-client.version>
         <sentinel-datasource-nacos.version>1.8.8</sentinel-datasource-nacos.version>
         <admin-starter-client.version>3.3.3</admin-starter-client.version>
         <reactive-streams.version>1.0.4</reactive-streams.version>
@@ -62,6 +61,8 @@
         <redisson.version>3.34.1</redisson.version>
         <postgresql.version>42.7.3</postgresql.version>
         <fastjson.version>2.0.48</fastjson.version>
+        <feign.version>13.3</feign.version>
+        <okhttp.version>4.12.0</okhttp.version>
         <springdoc-openapi-starter-webmvc-ui.version>2.1.0</springdoc-openapi-starter-webmvc-ui.version>
     </properties>
 
@@ -112,6 +113,32 @@
     <dependencyManagement>
 
         <dependencies>
+            <!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>${okhttp.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/logging-interceptor -->
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>logging-interceptor</artifactId>
+                <version>${okhttp.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/io.github.openfeign/feign-okhttp -->
+            <dependency>
+                <groupId>io.github.openfeign</groupId>
+                <artifactId>feign-okhttp</artifactId>
+                <version>${feign.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/io.github.openfeign/feign-httpclient -->
+            <dependency>
+                <groupId>io.github.openfeign</groupId>
+                <artifactId>feign-httpclient</artifactId>
+                <version>${feign.version}</version>
+            </dependency>
+
             <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-compress -->
             <dependency>
                 <groupId>org.apache.commons</groupId>
@@ -119,12 +146,6 @@
                 <version>${commons-compress.version}</version>
             </dependency>
 
-
-            <dependency>
-                <groupId>org.redisson</groupId>
-                <artifactId>redisson-spring-boot-starter</artifactId>
-                <version>${redisson.version}</version>
-            </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-actuator</artifactId>
@@ -152,14 +173,12 @@
                 <artifactId>spring-cloud-starter-gateway</artifactId>
                 <version>${spring-cloud-starter.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-commons -->
+
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-commons</artifactId>
+                <artifactId>spring-cloud-openfeign-core</artifactId>
                 <version>${spring-cloud-starter.version}</version>
             </dependency>
-
-
 
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
@@ -172,22 +191,10 @@
                 <artifactId>spring-cloud-starter-bootstrap</artifactId>
                 <version>${spring-cloud-starter.version}</version>
             </dependency>
-
             <dependency>
-                <groupId>javax.servlet</groupId>
-                <artifactId>javax.servlet-api</artifactId>
-                <version>${javax.servlet-api.version}</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <artifactId>springfox-swagger2</artifactId>
-                <groupId>io.springfox</groupId>
-                <version>${io.springfox.verion}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-aop</artifactId>
-                <version>${spring-boot.version}</version>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+                <version>${spring-cloud-starter.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -195,14 +202,6 @@
                 <version>${spring-boot.version}</version>
             </dependency>
 
-
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-devtools</artifactId>
-                <version>${spring-boot.version}</version>
-                <scope>runtime</scope>
-                <optional>true</optional>
-            </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-configuration-processor</artifactId>
@@ -214,17 +213,6 @@
                 <artifactId>spring-boot-starter-test</artifactId>
                 <version>${spring-boot.version}</version>
                 <scope>test</scope>
-            </dependency>
-            <dependency>
-                <artifactId>springfox-spring-web</artifactId>
-                <groupId>io.springfox</groupId>
-                <version>${springfox.version}</version>
-            </dependency>
-            <!-- Add Spring WebSocket dependency -->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-websocket</artifactId>
-                <version>${spring-boot.version}</version>
             </dependency>
             <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-boot-starter -->
             <dependency>
@@ -270,13 +258,6 @@
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool-all.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/jakarta.servlet/jakarta.servlet-api -->
-            <dependency>
-                <groupId>jakarta.servlet</groupId>
-                <artifactId>jakarta.servlet-api</artifactId>
-                <version>${jakarta.servlet-api.version}</version>
-                <scope>provided</scope>
-            </dependency>
             <!-- https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-starter-alibaba-nacos-config -->
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
@@ -294,6 +275,11 @@
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
                 <version>${alibaba.cloud.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.nacos</groupId>
+                <artifactId>nacos-client</artifactId>
+                <version>${nacos-client.version}</version>
             </dependency>
             <!-- https://mvnrepository.com/artifact/io.seata/seata-spring-boot-starter -->
             <dependency>
@@ -329,11 +315,6 @@
                 <version>${fasterxml.jackson.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>com.fasterxml.jackson.datatype</groupId>
-                <artifactId>jackson-datatype-jsr310</artifactId>
-                <version>${fasterxml.jackson.version}</version>
-            </dependency>
             <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
@@ -370,13 +351,6 @@
                 <artifactId>joda-time</artifactId>
                 <version>${joda-time.version}</version>
             </dependency>
-
-            <!-- https://mvnrepository.com/artifact/org.apiguardian/apiguardian-api -->
-            <dependency>
-                <groupId>org.apiguardian</groupId>
-                <artifactId>apiguardian-api</artifactId>
-                <version>${apiguardian-api.version}</version>
-            </dependency>
             <!-- https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-starter-alibaba-sentinel -->
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
@@ -396,18 +370,11 @@
                 <version>${admin-starter-client.version}</version>
             </dependency>
 
-
             <!-- https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-alibaba-sentinel-datasource -->
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-sentinel-datasource</artifactId>
                 <version>${alibaba.cloud.version}</version>
-            </dependency>
-            <!-- https://mvnrepository.com/artifact/org.reactivestreams/reactive-streams -->
-            <dependency>
-                <groupId>org.reactivestreams</groupId>
-                <artifactId>reactive-streams</artifactId>
-                <version>${reactive-streams.version}</version>
             </dependency>
             <!-- https://mvnrepository.com/artifact/commons-beanutils/commons-beanutils -->
             <dependency>
@@ -416,30 +383,6 @@
                 <version>${commons-beanutils.version}</version>
             </dependency>
 
-
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-cache</artifactId>
-                <version>${spring-boot.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-data-redis-reactive</artifactId>
-                <version>${spring-boot.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>io.vavr</groupId>
-                <artifactId>vavr-jackson</artifactId>
-                <version>${vavr-jackson.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring-cloud.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
             <dependency>
                 <groupId>io.micrometer</groupId>
                 <artifactId>micrometer-observation</artifactId>
@@ -454,22 +397,6 @@
                 <groupId>io.zipkin.reporter2</groupId>
                 <artifactId>zipkin-reporter-brave</artifactId>
                 <version>${zipkin.version}</version>
-            </dependency>
-            <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-api -->
-            <dependency>
-                <groupId>io.jsonwebtoken</groupId>
-                <artifactId>jjwt-api</artifactId>
-                <version>${jjwt.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.jsonwebtoken</groupId>
-                <artifactId>jjwt-impl</artifactId>
-                <version>${jjwt.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.jsonwebtoken</groupId>
-                <artifactId>jjwt-jackson</artifactId>
-                <version>${jjwt.version}</version>
             </dependency>
             <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
             <dependency>
@@ -488,11 +415,6 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-validation</artifactId>
                 <version>${spring-boot.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springdoc</groupId>
-                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-                <version>${springdoc-openapi-starter-webmvc-ui.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -520,7 +442,7 @@
                 <includes>
                     <include>application-${profileActive}.yml</include>
                     <include>application.yml</include>
-                    <include>logback.xml</include>
+                    <include>nacos-logback14.xml</include>
                 </includes>
                 <filtering>true</filtering>
             </resource>

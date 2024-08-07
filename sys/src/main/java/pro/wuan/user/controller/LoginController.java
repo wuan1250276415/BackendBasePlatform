@@ -24,7 +24,7 @@ import pro.wuan.user.service.IUserSetService;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import jakarta.validation.constraints.*;
 import java.awt.image.BufferedImage;

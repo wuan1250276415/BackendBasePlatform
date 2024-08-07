@@ -1,15 +1,15 @@
 spring:
   profiles:
-    active: ${profileActive}
+    active: @profileActive@
   cloud:
     nacos:
-      server-addr: 124.221.117.35:8848
-      username: nacos
-      password: wuanfuck321.
+      server-addr: @nacosAddr@
+      username: @nacosUser@
+      password: @nacosPasswd@
       config:
-        file-extension: yml
+        file-extension: yaml
         shared-configs[0]:
-          data-id: common-${spring.profiles.active}.yml # 配置文件名-Data Id
+          data-id: common-${spring.profiles.active}.yaml # 配置文件名-Data Id
           group: cloud   # 默认为DEFAULT_GROUP
           refresh: true          # 是否动态刷新，默认为false
         group: cloud

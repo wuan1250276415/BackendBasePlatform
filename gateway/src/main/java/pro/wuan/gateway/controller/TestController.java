@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TestController {
 
+    @Value("${tellhow.datasource.ip}")
     private String test;
 
     @GetMapping("test")

@@ -3,26 +3,6 @@ server:
 spring:
   application:
     name: gateway
-  cloud:
-    nacos:
-      server-addr: 124.221.117.35:8848
-      username: nacos
-      password: wuanfuck321.
-      config:
-        import-check:
-          enabled: false
-        file-extension: yaml
-        shared-configs[0]:
-          data-id: common-online.yaml # 配置文件名-Data Id
-          group: cloud   # 默认为DEFAULT_GROUP
-          refresh: true
-        shared-configs[1]:
-          data-id: gateway-online.yaml # 配置文件名-Data Id
-          group: cloud   # 默认为DEFAULT_GROUP
-          refresh: true
-        group: cloud
-      discovery:
-        group: cloud
   data:
     redis:
       host: 124.221.117.35
@@ -31,28 +11,10 @@ spring:
       timeout: 50000
       database: 1
 
-logging:
-  pattern:
-#    console: '%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n'
-    level: '%5p [${spring.application.name},%X{X-B3-TraceId:-},%X{X-B3-SpanId:-},%X{X-Span-Export:-}]'
-  level:
-    web: trace
-management:
-  tracing:
-    sampling:
-      probability: 1.0
-  endpoints:
-    web:
-      exposure:
-        include: '*'
-  zipkin:
-    tracing:
-      endpoint: http://42.194.184.206:9411/api/v2/spans
 #feign接口配置60秒异常
 ribbon:
   ReadTimeout: 60000
   ConnectTimeout: 60000
-test: ${tellhow.datasource.ip}
 gateway:
   dynamicRoute:
     enabled: true

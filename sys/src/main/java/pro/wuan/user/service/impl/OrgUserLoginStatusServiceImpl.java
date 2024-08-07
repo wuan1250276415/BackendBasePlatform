@@ -27,7 +27,7 @@ import pro.wuan.user.service.IOrgUserService;
 import pro.wuan.utils.UserAgentUtils;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;

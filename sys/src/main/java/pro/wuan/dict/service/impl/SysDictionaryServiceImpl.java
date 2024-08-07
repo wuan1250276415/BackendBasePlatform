@@ -3,7 +3,6 @@ package pro.wuan.dict.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
-import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.util.Strings;
@@ -420,7 +419,7 @@ public class SysDictionaryServiceImpl extends BaseServiceImpl<SysDictionaryMappe
      * @return
      */
     private List<SysDictionary> getItemList(List<Long> parentIds) {
-        List<SysDictionary> rtnList = Lists.newArrayList();
+        List<SysDictionary> rtnList = new ArrayList<>();
         //分批处理
         List<List<Long>> partsChange = CommonUtil.averageAssignByPage(parentIds, 200);
         for(List<Long> onePageChange:partsChange){

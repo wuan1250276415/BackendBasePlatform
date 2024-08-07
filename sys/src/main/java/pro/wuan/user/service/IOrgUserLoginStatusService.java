@@ -5,7 +5,7 @@ import pro.wuan.common.core.service.IBaseService;
 import pro.wuan.user.entity.OrgUserLoginStatusModel;
 import pro.wuan.user.mapper.OrgUserLoginStatusMapper;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**

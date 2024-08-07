@@ -1,8 +1,8 @@
 package pro.wuan.common.web.validator.wrapper;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequestWrapper;
 /**
  * 验证请求包装器
  *

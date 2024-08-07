@@ -10,11 +10,6 @@ import org.springframework.cloud.loadbalancer.support.LoadBalancerClientFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 
-/**
- * @description:
- * @author: oldone
- * @date: 2021/8/18 16:29
- */
 
 public class LoadBalancerClientAutoConfiguration {
 
@@ -22,8 +17,7 @@ public class LoadBalancerClientAutoConfiguration {
     @Resource
     private NacosDiscoveryProperties nacosDiscoveryProperties;
     @Bean
-    ReactorLoadBalancer<ServiceInstance> nacosLoadBalancer(Environment environment,
-                                                           LoadBalancerClientFactory loadBalancerClientFactory) {
+    ReactorLoadBalancer<ServiceInstance> nacosLoadBalancer(Environment environment,LoadBalancerClientFactory loadBalancerClientFactory) {
         String name = environment.getProperty(LoadBalancerClientFactory.PROPERTY_NAME);
         return new NacosLoadBalancer(loadBalancerClientFactory.getLazyProvider(name, ServiceInstanceListSupplier.class), name, nacosDiscoveryProperties);
     }

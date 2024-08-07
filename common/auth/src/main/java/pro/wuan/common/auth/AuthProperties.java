@@ -17,7 +17,6 @@ package pro.wuan.common.auth;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -29,7 +28,7 @@ import java.util.List;
  * @author Chill
  */
 @Data
-@RefreshScope
+//@RefreshScope
 @ConfigurationProperties(value = "tellhow.auth")
 @Component
 public class AuthProperties {

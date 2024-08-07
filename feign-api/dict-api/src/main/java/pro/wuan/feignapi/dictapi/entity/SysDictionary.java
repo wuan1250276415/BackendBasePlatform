@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
 import pro.wuan.common.core.annotation.constraints.group.ValidatorSaveCheck;
@@ -19,6 +20,7 @@ import java.util.List;
  * @author: oldone
  * @date: 2021/9/7 14:41
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @TableName("sys_dictionary")
 public class SysDictionary extends BaseTenantModel {

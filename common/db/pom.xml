@@ -57,10 +57,6 @@
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid</artifactId>
 		</dependency>
-        <dependency>
-            <artifactId>spring-cloud-context</artifactId>
-            <groupId>org.springframework.cloud</groupId>
-        </dependency>
 		<dependency>
 			<artifactId>spring-web</artifactId>
 			<groupId>org.springframework</groupId>
@@ -68,6 +64,12 @@
 		<dependency>
 			<artifactId>spring-webmvc</artifactId>
 			<groupId>org.springframework</groupId>
+		</dependency>
+		<dependency>
+			<artifactId>spring-cloud-context</artifactId>
+			<groupId>org.springframework.cloud</groupId>
+			<version>4.1.4</version>
+			<scope>compile</scope>
 		</dependency>
 	</dependencies>
 
